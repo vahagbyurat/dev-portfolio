@@ -18,6 +18,28 @@ body {
     color: var(--charcoal);
     line-height: 1.8;
     overflow-x: hidden;
+    /* Firefox custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--bronze) var(--dark-cream);
+}
+
+/* Webkit custom scrollbar (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-cream);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bronze);
+    border-radius: 5px;
+    border: 2px solid var(--dark-cream);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
 }
 
 /* Hero Section */
@@ -171,7 +193,11 @@ nav {
     left: 0;
     right: 0;
     z-index: 10;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    border-top: 1px solid transparent;
+    padding: 0;
+    backdrop-filter: none;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 nav.fixed-bottom {

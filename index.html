@@ -374,6 +374,7 @@
 
                         setTimeout(() => {
                             container.innerHTML = `<div class="content-box">${sections[sectionId]}</div>`;
+                            window.scrollTo(0, 0);
                             setTimeout(() => {
                                 container.querySelector('.content-box').classList.add('visible');
                                 currentSection = sectionId;
@@ -408,6 +409,7 @@
 
                     setTimeout(() => {
                         container.innerHTML = `<div class="content-box">${sections[sectionId]}</div>`;
+                        window.scrollTo(0, 0);
                         setTimeout(() => {
                             container.querySelector('.content-box').classList.add('visible');
                             isOpen = true;
@@ -422,36 +424,47 @@
         function closeSection() {
             const contentBox = document.querySelector('.content-box');
             const logo = document.getElementById('logo');
+            const hero = document.getElementById('hero');
+            const nav = document.querySelector('nav');
+            const closeBtn = document.getElementById('closeBtn');
 
+            // 1. Fade out content
             if (contentBox) {
                 contentBox.classList.remove('visible');
             }
+            closeBtn.classList.remove('visible');
 
+            // 2. After content fades, release the nav bar (animates from docked to floating)
             setTimeout(() => {
-                logo.classList.add('fade-out');
+                nav.classList.remove('fixed-bottom');
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.classList.remove('active', 'rotating', 'rotate-right', 'rotate-left');
+                });
 
+                // 3. Briefly after nav starts moving, fade logo and expand hero
                 setTimeout(() => {
-                    logo.classList.add('hidden');
-
-                    document.getElementById('hero').classList.remove('compact');
-                    document.querySelector('nav').classList.remove('fixed-bottom');
-                    document.getElementById('closeBtn').classList.remove('visible');
-                    document.querySelectorAll('nav a').forEach(a => {
-                        a.classList.remove('active', 'rotating', 'rotate-right', 'rotate-left');
-                    });
+                    logo.classList.add('fade-out');
 
                     setTimeout(() => {
-                        logo.classList.remove('hidden');
-                        logo.classList.remove('fade-out');
-                    }, 600);
+                        logo.classList.add('hidden');
+                        hero.classList.remove('compact');
 
-                    setTimeout(() => {
-                        document.getElementById('contentContainer').innerHTML = '';
-                        isOpen = false;
-                        currentSection = null;
-                        history.replaceState(null, '', window.location.pathname);
-                    }, 600);
-                }, 450);
+                        // 4. Logo reappears as hero expands
+                        setTimeout(() => {
+                            logo.classList.remove('hidden');
+                            logo.classList.remove('fade-out');
+                        }, 500);
+
+                        // 5. Clean up
+                        setTimeout(() => {
+                            document.getElementById('contentContainer').innerHTML = '';
+                            window.scrollTo(0, 0);
+                            isOpen = false;
+                            currentSection = null;
+                            history.replaceState(null, '', window.location.pathname);
+                        }, 600);
+                    }, 200);
+                }, 150);
             }, 300);
         }
 
