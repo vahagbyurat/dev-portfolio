@@ -343,18 +343,18 @@
 
                     const transSquare = document.createElement('div');
                     transSquare.className = 'square-transition';
-                    transSquare.style.left = (currentRect.left + currentRect.width / 2) + 'px';
-                    transSquare.style.top = (currentRect.top - 12) + 'px';
-                    transSquare.style.transform = 'translateX(-50%)';
+                    transSquare.style.left = (currentRect.left - 14) + 'px';
+                    transSquare.style.top = (currentRect.top + currentRect.height / 2) + 'px';
+                    transSquare.style.transform = 'translateY(-50%)';
                     document.body.appendChild(transSquare);
 
                     currentActive.classList.remove('active');
 
                     setTimeout(() => {
                         transSquare.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-                        transSquare.style.left = (newRect.left + newRect.width / 2) + 'px';
-                        transSquare.style.top = (newRect.top - 12) + 'px';
-                        transSquare.style.transform = `translateX(-50%) rotate(${rotationDeg}deg)`;
+                        transSquare.style.left = (newRect.left - 14) + 'px';
+                        transSquare.style.top = (newRect.top + newRect.height / 2) + 'px';
+                        transSquare.style.transform = `translateY(-50%) rotate(${rotationDeg}deg)`;
                     }, 50);
 
                     const contentBox = container.querySelector('.content-box');
