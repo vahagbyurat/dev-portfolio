@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Block direct access to downloadable resume PDF
+Disallow: /resume/VahagByuratResume.pdf
+Disallow: /resume/*.pdf$

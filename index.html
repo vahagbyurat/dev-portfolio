@@ -3,595 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vahag Byurat · Software Engineer</title>
+    <title>Vahag Byurat · Senior SDET & Software Engineer</title>
+    <meta name="description" content="Senior SDET with 15+ years building quality software. Expert in test automation, AWS, and framework architecture.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --cream: #f5f1e8;
-            --dark-cream: #e8e0d5;
-            --charcoal: #2c2c2c;
-            --gold: #c9a961;
-            --bronze: #8b6f47;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--cream);
-            color: var(--charcoal);
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 100px 40px;
-            position: relative;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .title-wrapper {
-            text-align: center;
-        }
-
-        .hero.compact {
-            min-height: auto;
-            padding: 25px 40px;
-            background: rgba(245, 241, 232, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-        .hero.compact .hero-content {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            flex-direction: row;
-        }
-
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 60px;
-            border: 3px solid var(--gold);
-            padding: 3px;
-            opacity: 1;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        .logo.fade-out {
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
-        }
-
-        .logo.hidden {
-            visibility: hidden;
-        }
-
-        .hero.compact .logo {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 0;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3em, 6vw, 6em);
-            font-weight: 300;
-            letter-spacing: 0.02em;
-            margin-bottom: 20px;
-            text-align: center;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero.compact h1 {
-            font-size: clamp(2em, 3vw, 3em);
-            margin-bottom: 0;
-            text-align: left;
-            display: inline;
-        }
-
-        .tagline {
-            font-size: clamp(1em, 2vw, 1.4em);
-            font-weight: 300;
-            color: var(--bronze);
-            text-align: center;
-            max-width: 600px;
-            opacity: 1;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero.compact .tagline {
-            font-size: 1em;
-            opacity: 0.7;
-            text-align: left;
-            max-width: none;
-            display: inline;
-            margin-left: 20px;
-            padding-left: 20px;
-            border-left: 1px solid var(--gold);
-        }
-
-        .hero.compact .title-wrapper {
-            text-align: left;
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-        }
-
-        /* Navigation */
-        nav {
-            margin-top: 80px;
-            position: fixed;
-            bottom: 15vh;
-            left: 0;
-            right: 0;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        nav.fixed-bottom {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin-top: 0;
-            background: rgba(245, 241, 232, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--gold);
-            padding: 30px 0;
-            z-index: 100;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-
-        .hero.compact .nav-content {
-            gap: 40px;
-        }
-
-        nav a {
-            color: var(--charcoal);
-            text-decoration: none;
-            font-size: 0.9em;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            position: relative;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 1px;
-            background: var(--gold);
-            transition: width 0.4s ease;
-        }
-
-        nav a:hover {
-            color: var(--gold);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Active square indicator */
-        nav a.active::before {
-            content: '';
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            animation: subtleFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes subtleFloat {
-            0%, 100% {
-                transform: translateX(-50%) translateY(0px);
-            }
-            50% {
-                transform: translateX(-50%) translateY(-2px);
-            }
-        }
-
-        /* Transitioning square that moves between links */
-        .square-transition {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            pointer-events: none;
-            z-index: 200;
-        }
-
-
-        /* Content Container */
-        .content-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px 200px;
-            position: relative;
-        }
-
-        /* Content Box */
-        .content-box {
-            background: var(--cream);
-            border: 1px solid var(--gold);
-            padding: 80px;
-            margin: 60px 0;
-            opacity: 0;
-            transform: scale(0.95);
-            transform-origin: top center;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        }
-
-        .content-box.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .content-box h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5em, 4vw, 4em);
-            font-weight: 300;
-            margin-bottom: 60px;
-            text-align: center;
-            position: relative;
-        }
-
-        .content-box h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 1px;
-            background: var(--gold);
-            margin: 30px auto 0;
-        }
-
-        /* About Content */
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2em;
-            text-align: center;
-            line-height: 2;
-        }
-
-        .about-content p {
-            margin-bottom: 40px;
-        }
-
-        .highlight {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        /* Skills Grid */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .skill-item {
-            text-align: center;
-            padding: 40px 20px;
-            border: 1px solid transparent;
-            transition: all 0.4s ease;
-        }
-
-        .skill-item:hover {
-            border-color: var(--gold);
-            background: rgba(201, 169, 97, 0.05);
-        }
-
-        .skill-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: var(--charcoal);
-        }
-
-        .skill-level {
-            font-size: 2.5em;
-            color: var(--gold);
-            font-weight: 300;
-            margin-bottom: 10px;
-        }
-
-        .skill-category {
-            font-size: 0.75em;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--bronze);
-        }
-
-        /* Timeline */
-        .timeline {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline-item {
-            padding: 60px 0;
-            border-bottom: 1px solid var(--dark-cream);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .timeline-year {
-            font-size: 0.9em;
-            color: var(--gold);
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .timeline-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .timeline-company {
-            font-size: 1.1em;
-            color: var(--bronze);
-            margin-bottom: 20px;
-        }
-
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 60px;
-        }
-
-        .project {
-            padding: 50px;
-            border: 1px solid var(--dark-cream);
-            transition: all 0.5s ease;
-            background: var(--cream);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .project:nth-child(1) { animation-delay: 0.1s; }
-        .project:nth-child(2) { animation-delay: 0.2s; }
-        .project:nth-child(3) { animation-delay: 0.3s; }
-        .project:nth-child(4) { animation-delay: 0.4s; }
-
-        .project:hover {
-            border-color: var(--gold);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-category {
-            font-size: 0.8em;
-            color: var(--gold);
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .project-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-        }
-
-        .project-links {
-            margin-top: 30px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .btn {
-            padding: 15px 35px;
-            border: 1px solid var(--charcoal);
-            color: var(--charcoal);
-            text-decoration: none;
-            font-size: 0.85em;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            transition: all 0.4s ease;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--cream);
-        }
-
-        /* Contact Grid */
-        .contact-grid {
-            max-width: 800px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-
-        .contact-item {
-            text-align: center;
-            padding: 50px 30px;
-            border: 1px solid var(--dark-cream);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .contact-item:nth-child(1) { animation-delay: 0.1s; }
-        .contact-item:nth-child(2) { animation-delay: 0.2s; }
-        .contact-item:nth-child(3) { animation-delay: 0.3s; }
-        .contact-item:nth-child(4) { animation-delay: 0.4s; }
-
-        .contact-item:hover {
-            border-color: var(--gold);
-            background: rgba(201, 169, 97, 0.05);
-        }
-
-        .contact-label {
-            font-size: 0.8em;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--bronze);
-            margin-bottom: 15px;
-        }
-
-        .contact-value {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4em;
-            color: var(--charcoal);
-        }
-
-        .contact-value a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .contact-value a:hover {
-            color: var(--gold);
-        }
-
-        /* Close Button */
-        .close-btn {
-            position: fixed;
-            top: 40px;
-            right: 40px;
-            width: 50px;
-            height: 50px;
-            border: 1px solid var(--gold);
-            background: var(--cream);
-            cursor: pointer;
-            z-index: 101;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            color: var(--gold);
-            transition: all 0.3s;
-        }
-
-        .close-btn:hover {
-            background: var(--gold);
-            color: var(--cream);
-        }
-
-        .close-btn.visible {
-            display: flex;
-        }
-
-        @media (max-width: 768px) {
-            .content-box {
-                padding: 40px 30px;
-            }
-
-            .projects-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-content {
-                gap: 30px;
-            }
-
-            nav.fixed-bottom .nav-content {
-                gap: 20px;
-            }
-
-            .hero.compact .logo {
-                width: 50px;
-                height: 50px;
-            }
-
-            .hero.compact h1 {
-                font-size: 1.5em;
-            }
-
-            .hero.compact .tagline {
-                font-size: 0.7em;
-                margin-left: 10px;
-                padding-left: 10px;
-            }
-
-            .hero.compact .title-wrapper {
-                flex-wrap: wrap;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 </head>
 <body>
     <div class="hero" id="hero">
@@ -602,7 +23,7 @@
             <div class="title-wrapper">
                 <h1>Vahag Byurat</h1>
                 <p class="tagline">
-                    Software Engineer · 15+ Years Building Quality · Zero Production Defects
+                    Senior SDET · QA Automation Engineer · Software Builder · Developer · 15+ Years Building Quality
                 </p>
             </div>
         </div>
@@ -611,8 +32,7 @@
     <nav id="mainNav">
         <div class="nav-content">
             <a onclick="openSection(event, 'about')">About</a>
-            <a onclick="openSection(event, 'skills')">Skills</a>
-            <a onclick="openSection(event, 'experience')">Experience</a>
+            <a onclick="openSection(event, 'resume')">Resume</a>
             <a onclick="openSection(event, 'projects')">Projects</a>
             <a onclick="openSection(event, 'contact')">Contact</a>
         </div>
@@ -628,90 +48,184 @@
                 <h2>About</h2>
                 <div class="about-content">
                     <p>
-                        Senior Software Engineer with <span class="highlight">15+ years</span> of experience building robust
-                        test automation frameworks, leading cross-functional teams, and delivering zero-defect production releases.
+                        For over <span class="highlight">fifteen years</span>, I've built my career at the intersection of software engineering and quality — architecting automation frameworks, leading QA strategy, and shipping zero-defect releases for organizations like <span class="highlight">PlayStation</span> and high-growth fintech startups.
                     </p>
                     <p>
-                        Expert in test framework architecture, AWS cloud services, and AI-assisted development. While professionally
-                        an SDET, I create software across AI, productivity tools, and cryptography domains.
+                        But testing was always just one side of the coin. The same instincts that make a great SDET — deep systems thinking, architectural rigor, an obsession with edge cases — are exactly what fuel great software. I'm channeling that foundation into <span class="highlight">backend and full-stack development</span>, building the tools and applications I've spent years ensuring others built right.
                     </p>
                     <p>
-                        Currently deepening backend fundamentals through Boot.Dev's Python & Go path while building personal
-                        projects that push boundaries.
+                        This site is a showcase of that evolution. Every project here is something I've designed, engineered, and shipped — from AI-powered productivity tools to cryptographic protocols. Less resume, more proof of work.
                     </p>
                 </div>
-            `,
-            skills: `
-                <h2>Expertise</h2>
-                <div class="skills-container">
-                    <div class="skill-item">
-                        <div class="skill-name">Java</div>
-                        <div class="skill-level">95</div>
-                        <div class="skill-category">Primary</div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">Python</div>
-                        <div class="skill-level">92</div>
-                        <div class="skill-category">Primary</div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">SQL</div>
-                        <div class="skill-level">90</div>
-                        <div class="skill-category">Primary</div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">Selenium</div>
-                        <div class="skill-level">98</div>
-                        <div class="skill-category">Primary</div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">AWS</div>
-                        <div class="skill-level">90</div>
-                        <div class="skill-category">Primary</div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">TypeScript</div>
-                        <div class="skill-level">75</div>
-                        <div class="skill-category">Secondary</div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">Rust</div>
-                        <div class="skill-level">65</div>
-                        <div class="skill-category">Secondary</div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">PostgreSQL</div>
-                        <div class="skill-level">78</div>
-                        <div class="skill-category">Secondary</div>
-                    </div>
+
+                <div class="faq-section">
+                    <div class="faq-section-title">Frequently Asked</div>
+
+                    <details class="faq-item">
+                        <summary>Are you a developer or a QA SDET?</summary>
+                        <div class="faq-answer">
+                            <p>
+                                Both. Fifteen years of test automation and SDET work gave me deep expertise in how software systems behave — and how they break. That same foundation now drives everything I build. I write production code with the rigor of someone who's spent a career holding it to the highest standard. Head over to the <a href="#" onclick="event.preventDefault(); document.querySelectorAll('.nav-content a')[2].click();" style="color: var(--gold);">Projects</a> section for a showcase of the things I'm building.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What's with all the dragons?</summary>
+                        <div class="faq-answer">
+                            <div class="faq-emblem">
+                                <img src="assets/vahagn-statue.jpg" alt="Statue of Vahagn the Dragon Reaper in Yerevan, Armenia" style="max-width: 280px; border: 1px solid var(--dark-cream); opacity: 0.9;">
+                            </div>
+                            <p>
+                                My name, Vahag, comes from <strong>Vahagn</strong> (\u054E\u0561\u0570\u0561\u0563\u0576) — the ancient Armenian god of fire, thunder, and war, known as the <em>Vishapakagh</em>, or "Dragon Reaper." In Armenian mythology, Vahagn was born from fire and fought the vishaps — primordial dragons of chaos — to protect his people. He remains one of Armenia's most enduring mythological figures, with statues across Yerevan honoring his legacy.
+                            </p>
+                            <p>
+                                I was also born in the Year of the Dragon. Between the namesake and the birth year, the dragon motif felt less like a choice and more like an inheritance — so I'm building a brand around it. From project names like Dragonote and Tomato Dragon to the visual identity across my work, the dragon thread runs through everything.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What is this site built with?</summary>
+                        <div class="faq-answer">
+                            <p>
+                                Pure HTML, CSS, and vanilla JavaScript — no frameworks, no build tools, no dependencies. It runs entirely as a static site on GitHub Pages. The design philosophy was intentional: clean, performant, well-crafted software doesn't need a mountain of tooling behind it.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What are you working on next?</summary>
+                        <div class="faq-answer">
+                            <p>
+                                Always several things at once. Currently deepening backend fundamentals with Python and Go, building out Dragonote (AI-powered knowledge management), and exploring zero-knowledge proof protocols for privacy-preserving identity systems. Check the Projects section for the latest.
+                            </p>
+                        </div>
+                    </details>
                 </div>
             `,
-            experience: `
-                <h2>Experience</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-year">2024 – 2025</div>
-                        <div class="timeline-title">Senior Software Engineer II</div>
-                        <div class="timeline-company">Altruist, Los Angeles</div>
-                        <p>
-                            QA lead for Integrations & Firm Management. Achieved 100% automation coverage on critical features
-                            including Plaid API Integration with 99.98% success rate. Zero production bugs leaked.
-                        </p>
+            resume: `
+                <h2>Resume</h2>
+                <div class="resume-page">
+                    <div class="resume-header">
+                        <div class="resume-name">Vahag Byurat</div>
+                        <div class="resume-title">Senior SDET · QA Lead · Backend & Frontend Engineer</div>
+                        <div class="resume-contact">Burbank, CA</div>
                     </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">2008 – 2024</div>
-                        <div class="timeline-title">Automation QA Engineer</div>
-                        <div class="timeline-company">Sony Interactive Entertainment, Los Angeles</div>
-                        <p>
-                            Designed comprehensive test automation frameworks for PlayStation Store infrastructure.
-                            100% automation coverage on multiple projects. Led API/UI automation across global ecosystem.
-                        </p>
+
+                    <div class="resume-summary">
+                        Results-driven Senior QA Engineer with 15+ years of experience in test automation, API testing, and cross-functional team leadership in Agile environments. 100% automated test coverage with zero production bug leakage. Expert in framework architecture, AWS cloud, and AI-assisted development.
                     </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">Graduated</div>
-                        <div class="timeline-title">B.S. Computer Science</div>
-                        <div class="timeline-company">California State University Northridge</div>
-                        <p>Foundation in algorithms, data structures, and software engineering principles.</p>
+
+                    <div class="resume-download" id="resumeDownload">
+                        <div class="resume-download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="13" x2="12" y2="18"/><polyline points="9 16 12 19 15 16"/></svg>
+                        </div>
+                        <div class="resume-download-text">
+                            <span class="resume-download-title">See Traditional Resume</span>
+                            <span class="resume-download-sub">PDF format</span>
+                        </div>
+                        <button class="resume-download-btn" onclick="downloadResume()">
+                            Download
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">Technical Skills</div>
+                        <div class="skill-tree">
+                            <div class="skill-tree-category">
+                                <div class="skill-tree-category-title">Languages</div>
+                                <div class="skill-tree-items">
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Java</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:95%"></div></div><span class="skill-tree-level expert">Expert</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Python</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:90%"></div></div><span class="skill-tree-level expert">Expert</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">SQL</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:85%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">GraphQL</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:60%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">TypeScript / JS</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:55%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">C#</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:50%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">C++</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:45%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Rust</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:35%"></div></div><span class="skill-tree-level learning">Learning</span></div>
+                                </div>
+                            </div>
+                            <div class="skill-tree-category">
+                                <div class="skill-tree-category-title">Testing & Automation</div>
+                                <div class="skill-tree-items">
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Framework Architecture</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:95%"></div></div><span class="skill-tree-level expert">Expert</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Selenium</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:95%"></div></div><span class="skill-tree-level expert">Expert</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">REST / API Testing</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:95%"></div></div><span class="skill-tree-level expert">Expert</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">E2E Testing</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:90%"></div></div><span class="skill-tree-level expert">Expert</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Playwright</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:80%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">TestRail / QTest</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:75%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Performance Testing</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:70%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                </div>
+                            </div>
+                            <div class="skill-tree-category">
+                                <div class="skill-tree-category-title">Cloud & DevOps</div>
+                                <div class="skill-tree-items">
+                                    <div class="skill-tree-item"><span class="skill-tree-name">AWS</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:85%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Datadog</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:80%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">GitLab CI/CD</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:80%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Jenkins</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:75%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">ArgoCD</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:65%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                </div>
+                            </div>
+                            <div class="skill-tree-category">
+                                <div class="skill-tree-category-title">Databases</div>
+                                <div class="skill-tree-items">
+                                    <div class="skill-tree-item"><span class="skill-tree-name">PostgreSQL</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:85%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">OpenSearch</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:80%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">MySQL</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:75%"></div></div><span class="skill-tree-level advanced">Advanced</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Oracle</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:65%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Snowflake</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:60%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">DynamoDB</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:55%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                    <div class="skill-tree-item"><span class="skill-tree-name">Redis</span><div class="skill-tree-bar"><div class="skill-tree-fill" style="width:55%"></div></div><span class="skill-tree-level proficient">Proficient</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">Experience</div>
+                        <div class="resume-job">
+                            <div class="resume-job-header">
+                                <div><span class="resume-job-title">Senior Software Engineer II (SDET)</span><span class="resume-job-company"> — Altruist, Los Angeles</span></div>
+                                <span class="resume-job-dates">2024 – 2025</span>
+                            </div>
+                            <p class="resume-job-desc">QA lead for Integrations & Firm Management. Planned, automated, and maintained test suites; served as release manager and scrum master. Became SME across multiple domains within months.</p>
+                            <ul class="resume-bullets">
+                                <li>Owned Plaid API Integration QA — 99.98% success rate at launch with 100% automation coverage across test, stage, and production.</li>
+                                <li>Reverse-engineered legacy integrations via Datadog traces and DB queries, uncovering defects missed by prior QA for over a year.</li>
+                                <li>Managed Kong Authentication, Bulk Data Export (12+ partners), and multiple inbound/outbound integrations.</li>
+                            </ul>
+                        </div>
+                        <div class="resume-job">
+                            <div class="resume-job-header">
+                                <div><span class="resume-job-title">Automation QA Engineer</span><span class="resume-job-company"> — Sony Interactive Entertainment (PlayStation), Los Angeles</span></div>
+                                <span class="resume-job-dates">2008 – 2024</span>
+                            </div>
+                            <p class="resume-job-desc">Designed test automation frameworks for PlayStation Store. 100% coverage across multiple projects. Led API/UI automation for the global ecosystem.</p>
+                            <ul class="resume-bullets">
+                                <li>Sole QA for internal apps managing PS Store assets — automated multi-part uploads, video encoding, content publishing.</li>
+                                <li>Migrated legacy CMS framework from XML to JSON REST APIs; led Kinesis-based async testing POC.</li>
+                                <li>Maintained massive legacy monolith (thousands of TestNG scripts); created v2.0 framework for active development.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="resume-section">
+                        <div class="resume-section-title">Education</div>
+                        <div class="resume-job-header" style="margin-bottom: 0;">
+                            <div><span class="resume-job-title">B.S. Computer Science</span><span class="resume-job-company"> — California State University Northridge</span></div>
+                        </div>
+                    </div>
+
+                    <div class="resume-icons">
+                        <a href="https://www.linkedin.com/in/vahagb/" target="_blank" rel="noopener" title="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://github.com/vahagbyurat" target="_blank" rel="noopener" title="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
                     </div>
                 </div>
             `,
@@ -754,28 +268,46 @@
             `,
             contact: `
                 <h2>Get In Touch</h2>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <div class="contact-label">Email</div>
-                        <div class="contact-value">
-                            <a href="mailto:vahagb@gmail.com">vahagb@gmail.com</a>
+                <div class="contact-layout">
+                    <div class="contact-callout">
+                        <div class="contact-callout-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none">
+                                <circle cx="22" cy="22" r="15" stroke="var(--charcoal)" stroke-width="2.5" fill="none"/>
+                                <line x1="33" y1="33" x2="48" y2="48" stroke="var(--charcoal)" stroke-width="3" stroke-linecap="round"/>
+                                <ellipse cx="22" cy="23.5" rx="5.5" ry="7" fill="#c0392b"/>
+                                <line x1="22" y1="16.5" x2="22" y2="30.5" stroke="var(--cream)" stroke-width="0.8"/>
+                                <circle cx="22" cy="16" r="2.8" fill="#2c2c2c"/>
+                                <line x1="16.5" y1="20" x2="13.5" y2="18" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="16.5" y1="23.5" x2="13" y2="23.5" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="16.5" y1="27" x2="13.5" y2="29" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="27.5" y1="20" x2="30.5" y2="18" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="27.5" y1="23.5" x2="31" y2="23.5" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="27.5" y1="27" x2="30.5" y2="29" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="20" y1="13.5" x2="18" y2="11" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="24" y1="13.5" x2="26" y2="11" stroke="#2c2c2c" stroke-width="1.2" stroke-linecap="round"/>
+                            </svg>
                         </div>
+                        <h3>Found a Bug?</h3>
+                        <p>Find something wrong in any of my software? Everything is early in development, feel free to let me know directly! 😊</p>
+                        <a href="https://www.linkedin.com/in/vahagb/" target="_blank" rel="noopener" class="btn">Reach Out on LinkedIn</a>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-label">LinkedIn</div>
-                        <div class="contact-value">
-                            <a href="https://linkedin.com/in/vahagb" target="_blank">linkedin.com/in/vahagb</a>
+                    <div class="contact-sidebar">
+                        <div class="contact-item">
+                            <div class="contact-label">LinkedIn</div>
+                            <div class="contact-value">
+                                <a href="https://www.linkedin.com/in/vahagb/" target="_blank">linkedin.com/in/vahagb</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-label">GitHub</div>
-                        <div class="contact-value">
-                            <a href="https://github.com/vahagb" target="_blank">github.com/vahagb</a>
+                        <div class="contact-item">
+                            <div class="contact-label">GitHub</div>
+                            <div class="contact-value">
+                                <a href="https://github.com/vahagbyurat" target="_blank">github.com/vahagbyurat</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-label">Location</div>
-                        <div class="contact-value">Burbank, California</div>
+                        <div class="contact-item">
+                            <div class="contact-label">Location</div>
+                            <div class="contact-value">Burbank, California</div>
+                        </div>
                     </div>
                 </div>
             `
@@ -783,6 +315,15 @@
 
         let isOpen = false;
         let currentSection = null;
+
+        /* Transitioning square that moves between links */
+        const squareStyle = document.createElement('style');
+        squareStyle.textContent = `.square-transition {
+            position: fixed; width: 6px; height: 6px;
+            background: transparent; border: 1px solid var(--gold);
+            pointer-events: none; z-index: 200;
+        }`;
+        document.head.appendChild(squareStyle);
 
         function openSection(event, sectionId) {
             event.preventDefault();
@@ -795,56 +336,48 @@
                 const currentActive = document.querySelector('nav a.active');
 
                 if (currentActive) {
-                    // Get positions for animation
                     const currentRect = currentActive.getBoundingClientRect();
                     const newRect = link.getBoundingClientRect();
                     const direction = newRect.left > currentRect.left ? 'right' : 'left';
                     const rotationDeg = direction === 'right' ? 90 : -90;
 
-                    // Create transitioning square element
                     const transSquare = document.createElement('div');
                     transSquare.className = 'square-transition';
                     transSquare.style.left = (currentRect.left + currentRect.width / 2) + 'px';
-                    transSquare.style.top = (currentRect.top - 18) + 'px';
+                    transSquare.style.top = (currentRect.top - 12) + 'px';
                     transSquare.style.transform = 'translateX(-50%)';
                     document.body.appendChild(transSquare);
 
-                    // Hide the original square
                     currentActive.classList.remove('active');
 
-                    // Animate to new position
                     setTimeout(() => {
                         transSquare.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
                         transSquare.style.left = (newRect.left + newRect.width / 2) + 'px';
-                        transSquare.style.top = (newRect.top - 18) + 'px';
+                        transSquare.style.top = (newRect.top - 12) + 'px';
                         transSquare.style.transform = `translateX(-50%) rotate(${rotationDeg}deg)`;
                     }, 50);
 
-                    // Fade out current content
                     const contentBox = container.querySelector('.content-box');
                     if (contentBox) {
                         contentBox.classList.remove('visible');
                     }
 
-                    // After animation completes
                     setTimeout(() => {
-                        // Remove transition square
                         if (transSquare.parentNode) {
                             transSquare.parentNode.removeChild(transSquare);
                         }
 
-                        // Activate new link
                         document.querySelectorAll('nav a').forEach(a => {
                             a.classList.remove('active', 'rotating', 'rotate-right', 'rotate-left');
                         });
                         link.classList.add('active');
 
-                        // Show new content
                         setTimeout(() => {
                             container.innerHTML = `<div class="content-box">${sections[sectionId]}</div>`;
                             setTimeout(() => {
                                 container.querySelector('.content-box').classList.add('visible');
                                 currentSection = sectionId;
+                                history.replaceState(null, '', '#' + sectionId);
                             }, 50);
                         }, 100);
                     }, 450);
@@ -855,37 +388,31 @@
 
             // Initial open from home page
             if (!isOpen) {
-                // Mark as active
                 document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
                 link.classList.add('active');
 
-                // Fade out logo first
                 const logo = document.getElementById('logo');
                 logo.classList.add('fade-out');
 
-                // Wait for logo to fully fade out before moving header
                 setTimeout(() => {
-                    // Hide logo completely during transition
                     logo.classList.add('hidden');
 
-                    // Compact hero and move nav to bottom
                     document.getElementById('hero').classList.add('compact');
                     document.querySelector('nav').classList.add('fixed-bottom');
                     document.getElementById('closeBtn').classList.add('visible');
 
-                    // Wait for header animation to complete, then show logo at new position
                     setTimeout(() => {
                         logo.classList.remove('hidden');
                         logo.classList.remove('fade-out');
                     }, 800);
 
-                    // Show content box
                     setTimeout(() => {
                         container.innerHTML = `<div class="content-box">${sections[sectionId]}</div>`;
                         setTimeout(() => {
                             container.querySelector('.content-box').classList.add('visible');
                             isOpen = true;
                             currentSection = sectionId;
+                            history.replaceState(null, '', '#' + sectionId);
                         }, 50);
                     }, 300);
                 }, 450);
@@ -901,11 +428,9 @@
             }
 
             setTimeout(() => {
-                // Fade out logo before moving back
                 logo.classList.add('fade-out');
 
                 setTimeout(() => {
-                    // Hide logo during transition
                     logo.classList.add('hidden');
 
                     document.getElementById('hero').classList.remove('compact');
@@ -915,7 +440,6 @@
                         a.classList.remove('active', 'rotating', 'rotate-right', 'rotate-left');
                     });
 
-                    // Fade logo back in at center position
                     setTimeout(() => {
                         logo.classList.remove('hidden');
                         logo.classList.remove('fade-out');
@@ -925,10 +449,77 @@
                         document.getElementById('contentContainer').innerHTML = '';
                         isOpen = false;
                         currentSection = null;
+                        history.replaceState(null, '', window.location.pathname);
                     }, 600);
                 }, 450);
             }, 300);
         }
+
+        // Resume PDF download — URL constructed in JS to deter scrapers
+        function downloadResume() {
+            var f = [86,97,104,97,103,66,121,117,114,97,116,82,101,115,117,109,101].map(function(c){return String.fromCharCode(c)}).join('');
+            window.open('resume/' + f + '.pdf', '_blank');
+        }
+
+        // Logo and name click → close section (same as × button)
+        document.getElementById('logo').addEventListener('click', function() {
+            if (isOpen) closeSection();
+        });
+        document.querySelector('h1').addEventListener('click', function() {
+            if (isOpen) closeSection();
+        });
+
+        // Open section from URL hash on page load (instant — no animation)
+        window.addEventListener('DOMContentLoaded', function() {
+            var hash = window.location.hash.substring(1);
+            if (hash && sections[hash]) {
+                var navLinks = document.querySelectorAll('.nav-content a');
+                var sectionOrder = ['about', 'resume', 'projects', 'contact'];
+                var idx = sectionOrder.indexOf(hash);
+                if (idx >= 0 && navLinks[idx]) {
+                    // Disable transitions so everything appears instantly
+                    var hero = document.getElementById('hero');
+                    var nav = document.querySelector('nav');
+                    var logo = document.getElementById('logo');
+                    var container = document.getElementById('contentContainer');
+                    var closeBtn = document.getElementById('closeBtn');
+
+                    hero.style.transition = 'none';
+                    nav.style.transition = 'none';
+                    logo.style.transition = 'none';
+
+                    // Set compact state directly
+                    hero.classList.add('compact');
+                    nav.classList.add('fixed-bottom');
+                    closeBtn.classList.add('visible');
+                    navLinks[idx].classList.add('active');
+
+                    // Inject content already visible
+                    container.innerHTML = '<div class="content-box visible">' + sections[hash] + '</div>';
+
+                    isOpen = true;
+                    currentSection = hash;
+
+                    // Re-enable transitions after paint so future interactions animate
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            hero.style.transition = '';
+                            nav.style.transition = '';
+                            logo.style.transition = '';
+                        });
+                    });
+                }
+            }
+        });
     </script>
+
+    <div class="site-social">
+        <a href="https://www.linkedin.com/in/vahagb/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/vahagbyurat" target="_blank" rel="noopener" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+    </div>
 </body>
 </html>
