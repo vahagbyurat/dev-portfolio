@@ -170,6 +170,7 @@ nav {
     bottom: 15vh;
     left: 0;
     right: 0;
+    z-index: 10;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1135,19 +1136,6 @@ body.subpage .close-btn {
         font-size: 0.7em;
         letter-spacing: 0.1em;
         -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Invisible expanded tap target — doesn't affect layout */
-    nav a::after {
-        content: '';
-        position: absolute;
-        top: -14px;
-        bottom: -14px;
-        left: -10px;
-        right: -10px;
-        width: auto;
-        height: auto;
-        background: transparent;
     }
 
     /* Square indicator: left of link with breathing room */
