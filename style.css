@@ -1125,12 +1125,6 @@ body.subpage .close-btn {
     .hero {
         padding: 25vh 20px 20px;
         min-height: auto;
-        transition: none;
-    }
-
-    /* Nav — stays at bottom like desktop, just tighter */
-    nav {
-        transition: none;
     }
 
     .nav-content {
@@ -1140,6 +1134,20 @@ body.subpage .close-btn {
     nav a {
         font-size: 0.7em;
         letter-spacing: 0.1em;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Invisible expanded tap target — doesn't affect layout */
+    nav a::after {
+        content: '';
+        position: absolute;
+        top: -14px;
+        bottom: -14px;
+        left: -10px;
+        right: -10px;
+        width: auto;
+        height: auto;
+        background: transparent;
     }
 
     /* Square indicator: left of link with breathing room */
