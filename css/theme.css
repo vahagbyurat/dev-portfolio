@@ -1,0 +1,213 @@
+/* ═══════════════════════════════════════════════════════
+   theme.css — Dark-mode variable overrides & toggle UI
+   Applied via [data-theme="dark"] on <html>
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Dark palette ───────────────────────────────────── */
+[data-theme="dark"] {
+    --cream:      #141414;
+    --dark-cream:  #1e1e1e;
+    --charcoal:    #e4e8e7;
+    --gold:        #d4a84b;
+    --bronze:      #a89968;
+
+    /* Modal backdrop — heavier darken + blur in dark mode */
+    --modal-overlay-bg:   rgba(0, 0, 0, 0.82);
+    --modal-overlay-blur: 8px;
+    --modal-scanline:     rgba(255, 255, 255, 0.015);
+
+    /* Scroll-area thumb — subtle at rest */
+    --scrollbar-thumb: rgba(168, 153, 104, 0.4);
+}
+
+/* ── Scrollbar — dark ───────────────────────────────── */
+[data-theme="dark"] ::-webkit-scrollbar-track,
+[data-theme="dark"]::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb,
+[data-theme="dark"]::-webkit-scrollbar-thumb {
+    background: #444;
+    border-color: #1e1e1e;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"]::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+/* ── Hero header — dark ─────────────────────────────── */
+[data-theme="dark"] .hero.compact {
+    background: rgba(20, 20, 20, 0.95);
+    border-bottom-color: var(--gold);
+}
+
+/* ── Nav — dark (targets ::before pseudo-element) ──── */
+[data-theme="dark"] nav.fixed-bottom::before {
+    background: rgba(20, 20, 20, 0.95);
+}
+
+/* ── Content box — dark ─────────────────────────────── */
+[data-theme="dark"] .content-box {
+    background: var(--cream);
+    border-color: #333;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Close button — dark ────────────────────────────── */
+[data-theme="dark"] .close-btn {
+    background: var(--cream);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+[data-theme="dark"] .close-btn:hover {
+    background: var(--gold);
+    color: var(--cream);
+}
+
+/* ── Project cards — dark ───────────────────────────── */
+[data-theme="dark"] .project {
+    background: var(--cream);
+    border-color: #333;
+}
+[data-theme="dark"] .project:hover {
+    border-color: var(--gold);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Buttons — dark ─────────────────────────────────── */
+[data-theme="dark"] .btn {
+    border-color: var(--charcoal);
+    color: var(--charcoal);
+}
+[data-theme="dark"] .btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #141414;
+}
+
+/* ── Contact / FAQ — dark ───────────────────────────── */
+[data-theme="dark"] .contact-item {
+    border-color: #333;
+}
+[data-theme="dark"] .contact-item:hover {
+    border-color: var(--gold);
+    background: rgba(212, 168, 75, 0.06);
+}
+
+[data-theme="dark"] .faq-item {
+    border-bottom-color: #333;
+}
+
+[data-theme="dark"] .resume-download {
+    border-color: var(--gold);
+}
+[data-theme="dark"] .resume-download:hover {
+    background: rgba(212, 168, 75, 0.06);
+}
+
+[data-theme="dark"] .resume-download-btn {
+    border-color: var(--charcoal);
+    color: var(--charcoal);
+}
+[data-theme="dark"] .resume-download-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #141414;
+}
+
+[data-theme="dark"] .skill-tree-bar {
+    background: #2a2a2a;
+}
+
+[data-theme="dark"] .resume-section-title {
+    border-bottom-color: var(--gold);
+}
+
+[data-theme="dark"] .skill-tree-category-title {
+    border-bottom-color: #333;
+}
+
+[data-theme="dark"] .dark-cream-border {
+    border-color: #333;
+}
+
+/* ── Skill item hover — dark ────────────────────────── */
+[data-theme="dark"] .skill-item:hover {
+    border-color: var(--gold);
+    background: rgba(212, 168, 75, 0.06);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Theme toggle button — lives inside <nav>
+   ═══════════════════════════════════════════════════════ */
+.theme-toggle {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid var(--bronze);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bronze);
+    transition: color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    padding: 0;
+    font-family: inherit;
+    z-index: 5;
+}
+
+.theme-toggle:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    transform: translateY(-50%) scale(1.15);
+}
+
+/* Icon swap: show sun in dark mode, moon in light mode */
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* Nav is already position:fixed in style.css, which creates
+   a containing block for the absolute-positioned toggle.
+   No position:relative override needed (it would break
+   the close animation by pulling the nav out of fixed flow). */
+
+/* ── Phones: pull toggle out of nav → fixed top-right ── */
+@media (max-width: 767px) {
+    .theme-toggle {
+        position: fixed;
+        top: 11px;
+        right: 16px;
+        left: auto;
+        transform: none;
+        z-index: 150;
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Thicker stroke to match the visual weight of the filled social icons */
+    .theme-toggle svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 2.5;
+    }
+
+    .theme-toggle:hover {
+        transform: scale(1.15);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Dark Reader / extension override
+   When a dark-mode extension is detected, we take over
+   by applying our own dark theme and telling the
+   extension to back off via <meta darkreaderlock>.
+   The JS in theme.js handles the detection + meta tag.
+   ═══════════════════════════════════════════════════════ */

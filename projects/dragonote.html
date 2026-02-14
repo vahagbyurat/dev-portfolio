@@ -1,0 +1,160 @@
+<!-- ═══════════════════════════════════════════════════
+     Dragonote — Modal content fragment
+     Loaded by modal.js into .modal-body
+     Uses --modal-* vars set by data-project="dragonote"
+     ═══════════════════════════════════════════════════ -->
+
+<style>
+    /* Scoped styles for Dragonote modal content */
+    .dn-hero {
+        background: linear-gradient(135deg, #0c1210 0%, #141e1b 100%);
+        padding: 48px 48px 40px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .dn-hero-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .dn-hero h1 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.6em;
+        font-weight: 300;
+        color: #e4e8e7;
+        letter-spacing: 0.02em;
+        margin-bottom: 12px;
+    }
+
+    .dn-hero h1 span {
+        color: #3ba68c;
+    }
+
+    .dn-hero p {
+        font-size: 1em;
+        color: #8b9694;
+        line-height: 1.7;
+        max-width: 520px;
+    }
+
+    .dn-hero-icon {
+        width: 140px;
+        height: 140px;
+        border-radius: 20px;
+        background: #1a2926;
+        border: 1px solid #243833;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 4em;
+    }
+
+    .dn-content {
+        padding: 40px 48px;
+        background: #141e1b;
+        color: #e4e8e7;
+    }
+
+    .dn-content h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.8em;
+        font-weight: 300;
+        margin-bottom: 16px;
+        color: #3ba68c;
+    }
+
+    .dn-content p {
+        font-size: 0.95em;
+        line-height: 1.8;
+        color: #8b9694;
+        margin-bottom: 20px;
+    }
+
+    .dn-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+    }
+
+    .dn-tag {
+        padding: 6px 16px;
+        border: 1px solid #243833;
+        border-radius: 20px;
+        font-size: 0.8em;
+        color: #8b9694;
+        letter-spacing: 0.05em;
+    }
+
+    .dn-tag.accent {
+        border-color: #3ba68c;
+        color: #3ba68c;
+    }
+
+    .dn-footer {
+        padding: 24px 48px;
+        background: #0c1210;
+        border-radius: 0 0 16px 16px;
+        text-align: center;
+    }
+
+    .dn-footer p {
+        font-size: 0.85em;
+        color: #4a6860;
+    }
+
+    @media (max-width: 1024px) {
+        .dn-hero {
+            flex-direction: column;
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .dn-hero-icon {
+            width: 100px;
+            height: 100px;
+            font-size: 3em;
+        }
+        .dn-content {
+            padding: 28px 24px;
+        }
+        .dn-footer {
+            padding: 20px 24px;
+        }
+    }
+</style>
+
+<div class="dn-hero">
+    <div class="dn-hero-icon">&#x1f409;</div>
+    <div class="dn-hero-text">
+        <h1>Dragon<span>ote</span></h1>
+        <p>AI-powered knowledge management with neural network categorization and semantic search using vector embeddings. Your second brain, guarded by dragons.</p>
+    </div>
+</div>
+
+<div class="dn-content">
+    <h2>About</h2>
+    <p>
+        Dragonote is an intelligent note-taking and knowledge management tool that uses AI to automatically categorize, link, and surface your notes. Built with a Rust-powered core engine and a Tauri desktop GUI, it's fast, private, and cross-platform.
+    </p>
+    <p>
+        Full product details, feature comparison, pricing, and download links are in development. This modal will be the home for all of that — a self-contained product page living right inside the portfolio.
+    </p>
+
+    <h2>Stack</h2>
+    <div class="dn-tags">
+        <span class="dn-tag accent">Rust</span>
+        <span class="dn-tag accent">Tauri</span>
+        <span class="dn-tag">Python</span>
+        <span class="dn-tag">Vector DB</span>
+        <span class="dn-tag">LLM Integration</span>
+        <span class="dn-tag">Cross-Platform</span>
+    </div>
+</div>
+
+<div class="dn-footer">
+    <p>Dragonote is in active development. More details coming soon.</p>
+</div>

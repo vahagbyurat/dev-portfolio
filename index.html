@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="projects/css/modal.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -30,6 +32,10 @@
     </div>
 
     <nav id="mainNav">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
         <div class="nav-content">
             <a href="#about" onclick="openSection(event, 'about')">About</a>
             <a href="#resume" onclick="openSection(event, 'resume')">Resume</a>
@@ -237,7 +243,7 @@
                         <div class="project-title">Dragonote</div>
                         <p>AI-powered knowledge management with neural network categorization and semantic search using vector embeddings.</p>
                         <div class="project-links">
-                            <a href="#" class="btn">Details</a>
+                            <a href="#" class="btn modal-trigger" data-project="dragonote">Details</a>
                         </div>
                     </div>
                     <div class="project">
@@ -245,7 +251,7 @@
                         <div class="project-title">Tomato Dragon</div>
                         <p>Gamified Pomodoro timer application. Watch your dragon companion grow as you complete focus sessions.</p>
                         <div class="project-links">
-                            <a href="#" class="btn">Try Alpha</a>
+                            <a href="#" class="btn modal-trigger" data-project="tomato-dragon">Try Alpha</a>
                         </div>
                     </div>
                     <div class="project">
@@ -253,7 +259,7 @@
                         <div class="project-title">Round Table</div>
                         <p>Cross-platform window manager for organizing workspace with custom layouts and quick-launch profiles.</p>
                         <div class="project-links">
-                            <a href="#" class="btn">Details</a>
+                            <a href="#" class="btn modal-trigger" data-project="round-table">Details</a>
                         </div>
                     </div>
                     <div class="project">
@@ -261,7 +267,7 @@
                         <div class="project-title">Pseudonymous ZKP</div>
                         <p>Zero-knowledge proof protocols for privacy-preserving identity verification without revealing PII.</p>
                         <div class="project-links">
-                            <a href="#" class="btn">White Paper</a>
+                            <a href="#" class="btn modal-trigger" data-project="pseudonymous-zkp">White Paper</a>
                         </div>
                     </div>
                 </div>
@@ -315,6 +321,32 @@
 
         let isOpen = false;
         let currentSection = null;
+
+        /* ── Scroll-containment helpers ──────────────────
+           Lock body scroll and make the content-container
+           the sole scroll area, so the scrollbar sits
+           between the header and footer bars. */
+        function setupScrollArea() {
+            document.body.classList.add('section-open');
+        }
+        function measureScrollBounds() {
+            var hero = document.getElementById('hero');
+            var nav = document.querySelector('nav');
+            var headerH = hero.getBoundingClientRect().height;
+            var navH = nav.getBoundingClientRect().height;
+            document.documentElement.style.setProperty('--header-h', headerH + 'px');
+            document.documentElement.style.setProperty('--footer-h', navH + 'px');
+        }
+        function teardownScrollArea() {
+            document.body.classList.remove('section-open');
+            document.documentElement.style.removeProperty('--header-h');
+            document.documentElement.style.removeProperty('--footer-h');
+        }
+        window.addEventListener('resize', function() {
+            if (document.body.classList.contains('section-open')) {
+                measureScrollBounds();
+            }
+        });
 
         /* Transitioning square that moves between links */
         const squareStyle = document.createElement('style');
@@ -374,7 +406,7 @@
 
                         setTimeout(() => {
                             container.innerHTML = `<div class="content-box">${sections[sectionId]}</div>`;
-                            window.scrollTo(0, 0);
+                            container.scrollTo(0, 0);
                             setTimeout(() => {
                                 container.querySelector('.content-box').classList.add('visible');
                                 currentSection = sectionId;
@@ -401,6 +433,8 @@
                     document.getElementById('hero').classList.add('compact');
                     document.querySelector('nav').classList.add('fixed-bottom');
                     document.getElementById('closeBtn').classList.add('visible');
+                    setupScrollArea();
+                    setTimeout(measureScrollBounds, 850);
 
                     setTimeout(() => {
                         logo.classList.remove('hidden');
@@ -409,7 +443,7 @@
 
                     setTimeout(() => {
                         container.innerHTML = `<div class="content-box">${sections[sectionId]}</div>`;
-                        window.scrollTo(0, 0);
+                        container.scrollTo(0, 0);
                         setTimeout(() => {
                             container.querySelector('.content-box').classList.add('visible');
                             isOpen = true;
@@ -428,43 +462,45 @@
             const nav = document.querySelector('nav');
             const closeBtn = document.getElementById('closeBtn');
 
-            // 1. Fade out content
+            // 1. Fade out content + close button
             if (contentBox) {
                 contentBox.classList.remove('visible');
             }
             closeBtn.classList.remove('visible');
 
-            // 2. After content fades, release the nav bar (animates from docked to floating)
+            // 2. After content fades, begin close sequence
             setTimeout(() => {
-                nav.classList.remove('fixed-bottom');
+                // Clear active nav indicators
                 document.querySelectorAll('nav a').forEach(a => {
                     a.classList.remove('active', 'rotating', 'rotate-right', 'rotate-left');
                 });
 
-                // 3. Briefly after nav starts moving, fade logo and expand hero
+                // Fade logo before hero expansion
+                logo.classList.add('fade-out');
+
                 setTimeout(() => {
-                    logo.classList.add('fade-out');
+                    logo.classList.add('hidden');
 
+                    // Hero expands AND nav rises together — synchronized
+                    hero.classList.remove('compact');
+                    nav.classList.remove('fixed-bottom');
+                    teardownScrollArea();
+
+                    // Logo reappears as hero settles
                     setTimeout(() => {
-                        logo.classList.add('hidden');
-                        hero.classList.remove('compact');
+                        logo.classList.remove('hidden');
+                        logo.classList.remove('fade-out');
+                    }, 600);
 
-                        // 4. Logo reappears as hero expands
-                        setTimeout(() => {
-                            logo.classList.remove('hidden');
-                            logo.classList.remove('fade-out');
-                        }, 500);
-
-                        // 5. Clean up
-                        setTimeout(() => {
-                            document.getElementById('contentContainer').innerHTML = '';
-                            window.scrollTo(0, 0);
-                            isOpen = false;
-                            currentSection = null;
-                            history.replaceState(null, '', window.location.pathname);
-                        }, 600);
-                    }, 200);
-                }, 150);
+                    // Clean up after transitions complete
+                    setTimeout(() => {
+                        document.getElementById('contentContainer').innerHTML = '';
+                        window.scrollTo(0, 0);
+                        isOpen = false;
+                        currentSection = null;
+                        history.replaceState(null, '', window.location.pathname);
+                    }, 900);
+                }, 200);
             }, 300);
         }
 
@@ -512,6 +548,7 @@
 
                     isOpen = true;
                     currentSection = hash;
+                    setupScrollArea();
 
                     // Re-enable transitions after paint so future interactions animate
                     requestAnimationFrame(function() {
@@ -519,6 +556,7 @@
                             hero.style.transition = '';
                             nav.style.transition = '';
                             logo.style.transition = '';
+                            measureScrollBounds();
                         });
                     });
                 }
@@ -534,5 +572,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
         </a>
     </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/modal.js"></script>
 </body>
 </html>

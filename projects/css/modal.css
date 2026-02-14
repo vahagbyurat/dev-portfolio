@@ -1,0 +1,293 @@
+/* ═══════════════════════════════════════════════════════
+   modal.css — Shared modal template
+   TV turn-on animation, overlay, close, scroll, scrollbar
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Scroll lock ────────────────────────────────────── */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ── Overlay ────────────────────────────────────────── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--modal-overlay-bg);
+    backdrop-filter: blur(var(--modal-overlay-blur));
+    -webkit-backdrop-filter: blur(var(--modal-overlay-blur));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 24px;
+
+    /* Fade in */
+    opacity: 0;
+    animation: overlayIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.modal-overlay.closing {
+    animation: overlayOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes overlayIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes overlayOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* ── Container ──────────────────────────────────────── */
+.modal-container {
+    position: relative;
+    width: 70%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 16px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+
+    /* Default surface — overridden per-project via data-project */
+    background: var(--cream);
+    border: 1px solid var(--dark-cream);
+    color: var(--charcoal);
+
+    /* Firefox scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--bronze) var(--dark-cream);
+
+    /* ── TV turn-on ─────────────────────────────────── */
+    transform: scaleY(0.005) scaleX(0.4);
+    opacity: 0;
+    filter: blur(12px) brightness(1.8);
+    animation: tvTurnOn 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.08s forwards;
+}
+
+.modal-container.closing {
+    animation: tvTurnOff 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ── TV Turn-On keyframes ───────────────────────────── */
+@keyframes tvTurnOn {
+    0% {
+        transform: scaleY(0.005) scaleX(0.4);
+        opacity: 0;
+        filter: blur(12px) brightness(1.8);
+    }
+    30% {
+        transform: scaleY(0.005) scaleX(0.85);
+        opacity: 0.6;
+        filter: blur(8px) brightness(1.4);
+    }
+    50% {
+        transform: scaleY(0.55) scaleX(0.97);
+        opacity: 0.85;
+        filter: blur(3px) brightness(1.1);
+    }
+    100% {
+        transform: scaleY(1) scaleX(1);
+        opacity: 1;
+        filter: blur(0) brightness(1);
+    }
+}
+
+@keyframes tvTurnOff {
+    0% {
+        transform: scaleY(1) scaleX(1);
+        opacity: 1;
+        filter: blur(0) brightness(1);
+    }
+    40% {
+        transform: scaleY(0.55) scaleX(0.97);
+        opacity: 0.8;
+        filter: blur(3px) brightness(1.2);
+    }
+    70% {
+        transform: scaleY(0.005) scaleX(0.85);
+        opacity: 0.5;
+        filter: blur(8px) brightness(1.5);
+    }
+    100% {
+        transform: scaleY(0.005) scaleX(0.3);
+        opacity: 0;
+        filter: blur(12px) brightness(2);
+    }
+}
+
+/* Faint CRT scanline shimmer — runs once on open */
+.modal-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        var(--modal-scanline) 0px,
+        var(--modal-scanline) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+    opacity: 0;
+    animation: scanlineFlash 0.6s ease 0.08s forwards;
+}
+
+@keyframes scanlineFlash {
+    0%   { opacity: 1; }
+    60%  { opacity: 0.4; }
+    100% { opacity: 0; }
+}
+
+/* ── Webkit scrollbar inside modal ──────────────────── */
+.modal-container::-webkit-scrollbar {
+    width: 8px;
+}
+.modal-container::-webkit-scrollbar-track {
+    background: var(--dark-cream);
+    border-radius: 0 16px 16px 0;
+}
+.modal-container::-webkit-scrollbar-thumb {
+    background: var(--bronze);
+    border-radius: 4px;
+    border: 1px solid var(--dark-cream);
+}
+.modal-container::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+/* ── Close button ───────────────────────────────────── */
+.modal-close {
+    position: sticky;
+    top: 0;
+    float: right;
+    margin: 16px 16px 0 0;
+    background: rgba(245, 241, 232, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 1.3em;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+    z-index: 10;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: var(--gold);
+    color: var(--cream);
+}
+
+[data-theme="dark"] .modal-close {
+    background: rgba(20, 20, 20, 0.85);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+[data-theme="dark"] .modal-close:hover {
+    background: var(--gold);
+    color: #141414;
+}
+
+/* ── Inner content wrapper ──────────────────────────── */
+.modal-body {
+    padding: 0;
+    position: relative;
+    z-index: 2; /* above scanline pseudo-element */
+}
+
+/* ═══════════════════════════════════════════════════════
+   Per-project color schemes
+   Set via data-project attribute on .modal-container
+   Each product overrides these vars for its own branding
+   ═══════════════════════════════════════════════════════ */
+
+/* Dragonote — teal & orange */
+.modal-container[data-project="dragonote"] {
+    --modal-accent:       #3ba68c;
+    --modal-accent-hover: #4bbfa2;
+    --modal-secondary:    #e8943a;
+    --modal-bg:           #0c1210;
+    --modal-surface:      #141e1b;
+    --modal-border:       #243833;
+    --modal-text:         #e4e8e7;
+    --modal-text-muted:   #8b9694;
+}
+
+/* Tomato Dragon — red & warm */
+.modal-container[data-project="tomato-dragon"] {
+    --modal-accent:       #e05d44;
+    --modal-accent-hover: #f06b52;
+    --modal-secondary:    #f0a44e;
+    --modal-bg:           #1a0f0f;
+    --modal-surface:      #221515;
+    --modal-border:       #3a2222;
+    --modal-text:         #f0e8e4;
+    --modal-text-muted:   #a08880;
+}
+
+/* Round Table — blue & silver */
+.modal-container[data-project="round-table"] {
+    --modal-accent:       #4a8cc9;
+    --modal-accent-hover: #5da0dd;
+    --modal-secondary:    #9ab0c8;
+    --modal-bg:           #0e1218;
+    --modal-surface:      #141a22;
+    --modal-border:       #253040;
+    --modal-text:         #e4e8ec;
+    --modal-text-muted:   #8899aa;
+}
+
+/* Pseudonymous ZKP — purple & green */
+.modal-container[data-project="pseudonymous-zkp"] {
+    --modal-accent:       #8b6dff;
+    --modal-accent-hover: #a088ff;
+    --modal-secondary:    #4dd9a0;
+    --modal-bg:           #100e18;
+    --modal-surface:      #171422;
+    --modal-border:       #2d2840;
+    --modal-text:         #e8e4f0;
+    --modal-text-muted:   #9088a0;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .modal-overlay {
+        padding: 12px;
+    }
+
+    .modal-container {
+        width: 95%;
+        max-height: 92vh;
+        border-radius: 12px;
+    }
+
+    .modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1em;
+        margin: 12px 12px 0 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .modal-container {
+        width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .modal-overlay {
+        padding: 0;
+    }
+}

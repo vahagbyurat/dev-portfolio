@@ -4,3 +4,6 @@ Allow: /
 # Block direct access to downloadable resume PDF
 Disallow: /resume/VahagByuratResume.pdf
 Disallow: /resume/*.pdf$
+
+# Dev/test tooling — not public content
+Disallow: /test/
