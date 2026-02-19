@@ -1,7 +1,9 @@
 /* ═══════════════════════════════════════════════════════
    modal.js — Project modal controller
    Opens / closes modals with TV turn-on animation.
-   Content fetched from HTML fragments under projects/.
+   Content sourced from:
+     1. window.MODAL_CONTENT (inline, works on file://)
+     2. XHR fetch from HTML fragments under projects/
    ═══════════════════════════════════════════════════════ */
 
 (function () {
@@ -9,11 +11,8 @@
 
     /* ── Registry: project id → content path ────────── */
     var MODAL_BASE = (function () {
-        // Resolve base path relative to current page location
         var path = window.location.pathname;
-        // If we're inside /projects/ already, content is sibling
         if (path.indexOf('/projects/') !== -1) return '';
-        // Otherwise go into projects/
         return 'projects/';
     })();
 
@@ -30,20 +29,31 @@
     /* ── Fetch modal content ────────────────────────── */
     function fetchContent(projectId, callback) {
         var file = registry[projectId];
-        if (!file) return;
+        if (!file) return callback('<div style="padding:60px;text-align:center;color:var(--bronze);">Unknown project.</div>');
 
+        var inlineHTML = (window.MODAL_CONTENT && window.MODAL_CONTENT[projectId]) || null;
+
+        // 1. Try XHR first (works on http/https, gets latest .html files)
         var url = MODAL_BASE + file;
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
                 callback(xhr.responseText);
+            } else if (inlineHTML) {
+                // 404 but we have inline content
+                callback(inlineHTML);
             } else {
                 callback('<div style="padding:60px;text-align:center;color:var(--bronze);">Content coming soon.</div>');
             }
         };
         xhr.onerror = function () {
-            callback('<div style="padding:60px;text-align:center;color:var(--bronze);">Could not load content.</div>');
+            // 2. XHR failed (file:// protocol) — fall back to inline content
+            if (inlineHTML) {
+                callback(inlineHTML);
+            } else {
+                callback('<div style="padding:60px;text-align:center;color:var(--bronze);">Could not load content.</div>');
+            }
         };
         xhr.send();
     }

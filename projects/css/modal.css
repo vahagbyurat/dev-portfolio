@@ -206,6 +206,18 @@ body.modal-open {
     z-index: 2; /* above scanline pseudo-element */
 }
 
+/* ── Per-project close button (always dark bg) ─────── */
+.modal-container[data-project] .modal-close {
+    background: rgba(20, 20, 20, 0.85);
+    border-color: var(--modal-accent, var(--gold));
+    color: var(--modal-accent, var(--gold));
+}
+
+.modal-container[data-project] .modal-close:hover {
+    background: var(--modal-accent, var(--gold));
+    color: var(--modal-bg, #141414);
+}
+
 /* ═══════════════════════════════════════════════════════
    Per-project color schemes
    Set via data-project attribute on .modal-container

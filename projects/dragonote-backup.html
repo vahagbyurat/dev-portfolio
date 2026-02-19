@@ -1,0 +1,292 @@
+<!-- ═══════════════════════════════════════════════════
+     Dragonote — Modal content fragment
+     Loaded by modal.js into .modal-body
+     Uses --modal-* vars set by data-project="dragonote"
+     ═══════════════════════════════════════════════════ -->
+
+<style>
+    /* Scoped styles for Dragonote modal content */
+    .dn-hero {
+        background: linear-gradient(135deg, var(--modal-bg, #0c1210) 0%, var(--modal-surface, #141e1b) 100%);
+        padding: 48px 48px 40px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .dn-hero-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .dn-hero h1 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.6em;
+        font-weight: 300;
+        color: var(--modal-text, #e4e8e7);
+        letter-spacing: 0.02em;
+        margin-bottom: 12px;
+    }
+
+    .dn-hero h1 span {
+        color: var(--modal-accent, #3ba68c);
+    }
+
+    .dn-hero p {
+        font-size: 1em;
+        color: var(--modal-text-muted, #8b9694);
+        line-height: 1.7;
+        max-width: 520px;
+    }
+
+    .dn-hero-icon {
+        width: 140px;
+        height: 140px;
+        border-radius: 20px;
+        background: var(--modal-bg, #0c1210);
+        border: 1px solid var(--modal-border, #243833);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    .dn-hero-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 8px;
+    }
+
+    .dn-hero-icon .dn-emoji-fallback {
+        font-size: 4em;
+    }
+
+    .dn-cta-row {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .dn-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-size: 0.9em;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        cursor: pointer;
+        border: none;
+    }
+
+    .dn-btn-primary {
+        background: var(--modal-accent, #3ba68c);
+        color: #fff;
+    }
+
+    .dn-btn-primary:hover {
+        background: var(--modal-accent-hover, #4bbfa2);
+    }
+
+    .dn-btn-ghost {
+        background: transparent;
+        border: 1px solid var(--modal-border, #243833);
+        color: var(--modal-text-muted, #8b9694);
+    }
+
+    .dn-btn-ghost:hover {
+        border-color: var(--modal-accent, #3ba68c);
+        color: var(--modal-accent, #3ba68c);
+    }
+
+    .dn-content {
+        padding: 40px 48px;
+        background: var(--modal-surface, #141e1b);
+        color: var(--modal-text, #e4e8e7);
+    }
+
+    .dn-content h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.8em;
+        font-weight: 300;
+        margin-bottom: 20px;
+        color: var(--modal-accent, #3ba68c);
+    }
+
+    .dn-content p {
+        font-size: 0.95em;
+        line-height: 1.8;
+        color: var(--modal-text-muted, #8b9694);
+        margin-bottom: 20px;
+    }
+
+    /* ── Feature highlights ──────────────────────────── */
+    .dn-feature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    .dn-feature-grid article {
+        background: var(--modal-bg, #0c1210);
+        border: 1px solid var(--modal-border, #243833);
+        border-radius: 12px;
+        padding: 24px;
+    }
+
+    .dn-feature-grid article h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.15em;
+        font-weight: 500;
+        color: var(--modal-secondary, #e8943a);
+        margin-bottom: 8px;
+    }
+
+    .dn-feature-grid article p {
+        font-size: 0.9em;
+        line-height: 1.7;
+        color: var(--modal-text-muted, #8b9694);
+        margin: 0;
+    }
+
+    .dn-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+    }
+
+    .dn-tag {
+        padding: 6px 16px;
+        border: 1px solid var(--modal-border, #243833);
+        border-radius: 20px;
+        font-size: 0.8em;
+        color: var(--modal-text-muted, #8b9694);
+        letter-spacing: 0.05em;
+    }
+
+    .dn-tag.accent {
+        border-color: var(--modal-accent, #3ba68c);
+        color: var(--modal-accent, #3ba68c);
+    }
+
+    .dn-footer {
+        padding: 24px 48px;
+        background: var(--modal-bg, #0c1210);
+        border-top: 1px solid var(--modal-border, #243833);
+        border-radius: 0 0 16px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dn-footer a {
+        font-size: 0.85em;
+        color: var(--modal-accent, #3ba68c);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .dn-footer a:hover {
+        color: var(--modal-accent-hover, #4bbfa2);
+    }
+
+    .dn-footer span {
+        font-size: 0.8em;
+        color: var(--modal-text-muted, #8b9694);
+    }
+
+    @media (max-width: 1024px) {
+        .dn-hero {
+            flex-direction: column;
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .dn-hero-icon {
+            width: 100px;
+            height: 100px;
+        }
+        .dn-hero-icon .dn-emoji-fallback {
+            font-size: 3em;
+        }
+        .dn-hero p {
+            max-width: none;
+        }
+        .dn-cta-row {
+            justify-content: center;
+        }
+        .dn-content {
+            padding: 28px 24px;
+        }
+        .dn-feature-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .dn-footer {
+            flex-direction: column;
+            gap: 8px;
+            padding: 20px 24px;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="dn-hero">
+    <div class="dn-hero-icon">
+        <img src="modal/dragonote_mascot.png" alt="Dragonote mascot"
+             onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src='projects/../modal/dragonote_mascot.png';}else{this.style.display='none';this.parentElement.innerHTML='<span class=dn-emoji-fallback>&#x1f409;</span>';}" />
+    </div>
+    <div class="dn-hero-text">
+        <h1>Dragon<span>ote</span></h1>
+        <p>AI-powered knowledge management with neural network categorization and semantic search using vector embeddings. Your second brain, guarded by dragons.</p>
+        <div class="dn-cta-row">
+            <a class="dn-btn dn-btn-primary" href="#">Coming Soon</a>
+            <a class="dn-btn dn-btn-ghost" href="https://github.com/vahagbyurat" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+    </div>
+</div>
+
+<div class="dn-content">
+    <h2>Highlights</h2>
+    <div class="dn-feature-grid">
+        <article>
+            <h3>Neural Categorization</h3>
+            <p>Automatically tags and organizes notes using lightweight ML models, so your ideas are always findable.</p>
+        </article>
+        <article>
+            <h3>Semantic Search</h3>
+            <p>Vector-embedded search that understands meaning, not just keywords. Ask questions in natural language.</p>
+        </article>
+        <article>
+            <h3>Local-First Privacy</h3>
+            <p>Your data stays on your machine. Rust-powered engine with optional LLM integration — no cloud required.</p>
+        </article>
+        <article>
+            <h3>Cross-Platform Desktop</h3>
+            <p>Built with Tauri for a native feel on macOS, Windows, and Linux with minimal resource overhead.</p>
+        </article>
+    </div>
+
+    <h2>Stack</h2>
+    <div class="dn-tags">
+        <span class="dn-tag accent">Rust</span>
+        <span class="dn-tag accent">Tauri</span>
+        <span class="dn-tag">Python</span>
+        <span class="dn-tag">Vector DB</span>
+        <span class="dn-tag">LLM Integration</span>
+        <span class="dn-tag">Cross-Platform</span>
+    </div>
+</div>
+
+<div class="dn-footer">
+    <a href="https://github.com/vahagbyurat" target="_blank" rel="noreferrer">Repository</a>
+    <span>In active development</span>
+</div>

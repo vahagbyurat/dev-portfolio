@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dragoNotebook — Pricing</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface-hover: #222632;
+    --border: #2a2e3b;
+    --text: #e4e4e7;
+    --text-muted: #8b8d97;
+    --accent: #6d5dfc;
+    --accent-hover: #7e70fd;
+    --accent-glow: rgba(109, 93, 252, 0.15);
+    --green: #34d399;
+    --green-muted: rgba(52, 211, 153, 0.12);
+    --gold: #f5a623;
+    --gold-muted: rgba(245, 166, 35, 0.12);
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Modal overlay ─────────────────────────────────── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 24px;
+  }
+
+  .modal-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 960px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.15s;
+    z-index: 10;
+  }
+  .modal-close:hover { background: var(--surface-hover); color: var(--text); }
+
+  /* ── Header ────────────────────────────────────────── */
+  .pricing-header {
+    text-align: center;
+    padding: 48px 32px 32px;
+  }
+
+  .pricing-header .logo {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .pricing-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .pricing-header p {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── Cards grid ────────────────────────────────────── */
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 32px 32px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .card.pro {
+    border-color: var(--accent);
+    background: linear-gradient(170deg, var(--accent-glow) 0%, transparent 40%);
+  }
+
+  .card-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .card.free .card-badge {
+    background: var(--green-muted);
+    color: var(--green);
+  }
+
+  .card.pro .card-badge {
+    background: var(--gold-muted);
+    color: var(--gold);
+  }
+
+  .card h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card .price {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .card .price span {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .card .cta {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s;
+    margin-bottom: 24px;
+  }
+
+  .card.free .cta {
+    background: var(--surface-hover);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .card.free .cta:hover { background: #2d3140; }
+
+  .card.pro .cta {
+    background: var(--accent);
+    color: white;
+  }
+  .card.pro .cta:hover { background: var(--accent-hover); }
+
+  .card ul {
+    list-style: none;
+  }
+
+  .card li {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    padding: 6px 0;
+    padding-left: 22px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 14px;
+    height: 14px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .card.free li::before {
+    content: '✓';
+    color: var(--green);
+    font-size: 13px;
+    top: 6px;
+    font-weight: 700;
+  }
+
+  .card.pro li::before {
+    content: '✓';
+    color: var(--gold);
+    font-size: 13px;
+    top: 6px;
+    font-weight: 700;
+  }
+
+  .card .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 16px;
+    margin-bottom: 4px;
+    padding-left: 0;
+  }
+
+  .card .section-label::before { display: none; }
+
+  /* ── Comparison table ──────────────────────────────── */
+  .comparison-section {
+    padding: 0 32px 40px;
+  }
+
+  .comparison-toggle {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .comparison-toggle button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .comparison-toggle button:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .comparison-table thead th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .comparison-table thead th:nth-child(2),
+  .comparison-table thead th:nth-child(3) {
+    text-align: center;
+    width: 100px;
+  }
+
+  .comparison-table tbody td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(42, 46, 59, 0.5);
+    color: var(--text-muted);
+  }
+
+  .comparison-table tbody td:nth-child(2),
+  .comparison-table tbody td:nth-child(3) {
+    text-align: center;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: var(--surface-hover);
+  }
+
+  .comparison-table .category-row td {
+    padding-top: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .check { color: var(--green); font-weight: 700; font-size: 15px; }
+  .check-pro { color: var(--gold); font-weight: 700; font-size: 15px; }
+  .dash { color: #3a3e4a; font-size: 18px; }
+  .detail { font-size: 12px; color: var(--text-muted); opacity: 0.7; }
+
+  /* ── Footer ────────────────────────────────────────── */
+  .pricing-footer {
+    text-align: center;
+    padding: 0 32px 32px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .pricing-footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* ── Tech specs section ──────────────────────────────── */
+  .specs-section {
+    padding: 0 32px 40px;
+  }
+
+  .specs-section h3 {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .specs-section .section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .spec-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .spec-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .spec-card ul {
+    list-style: none;
+  }
+
+  .spec-card li {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 4px 0;
+    line-height: 1.5;
+  }
+
+  .spec-card li strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ── Download section ──────────────────────────────── */
+  .download-section {
+    padding: 0 32px 40px;
+  }
+
+  .download-section h3 {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .download-section .section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .download-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .dl-platform {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .dl-platform .platform-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .dl-platform h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .dl-platform .dl-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dl-platform .dl-links a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+
+  .dl-platform .dl-links a.dl-basic {
+    background: var(--surface-hover);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .dl-platform .dl-links a.dl-basic:hover { background: #2d3140; }
+
+  .dl-platform .dl-links a.dl-pro {
+    background: var(--accent);
+    color: white;
+  }
+  .dl-platform .dl-links a.dl-pro:hover { background: var(--accent-hover); }
+
+  .dl-platform .dl-links .dl-format {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+
+  .dl-cli-note {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .dl-cli-note code {
+    background: var(--surface-hover);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  /* ── Expandable considerations ────────────────────── */
+  .considerations-section {
+    padding: 0 32px 40px;
+  }
+
+  .considerations-toggle {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .considerations-toggle button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .considerations-toggle button:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .considerations-content {
+    max-width: 800px;
+    margin: 24px auto 0;
+  }
+
+  .considerations-content h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 24px 0 10px;
+    color: var(--text);
+  }
+
+  .considerations-content h4:first-child {
+    margin-top: 0;
+  }
+
+  .considerations-content p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+
+  .considerations-content p strong {
+    color: var(--text);
+  }
+
+  .considerations-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+  }
+
+  .considerations-table thead th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .considerations-table tbody td {
+    padding: 8px 14px;
+    border-bottom: 1px solid rgba(42, 46, 59, 0.5);
+    color: var(--text-muted);
+  }
+
+  .considerations-table tbody td:first-child {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .considerations-table tbody tr:hover {
+    background: var(--surface-hover);
+  }
+
+  .verdict-box {
+    border: 1px solid var(--accent);
+    background: var(--accent-glow);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-top: 20px;
+  }
+
+  .verdict-box p {
+    color: var(--text);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .other-projects-note {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .other-projects-note a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* ── Responsive ────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .pricing-cards { grid-template-columns: 1fr; }
+    .modal-container { margin: 12px; }
+    .pricing-header { padding: 32px 20px 24px; }
+    .pricing-cards { padding: 0 20px 24px; }
+    .comparison-section { padding: 0 16px 32px; }
+    .specs-grid { grid-template-columns: 1fr; }
+    .download-grid { grid-template-columns: 1fr; }
+    .specs-section { padding: 0 20px 32px; }
+    .download-section { padding: 0 20px 32px; }
+    .considerations-section { padding: 0 16px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- This can be used as a modal. Wrap in .modal-overlay for overlay mode,
+     or remove .modal-overlay and .modal-container to use as a standalone page. -->
+<div class="modal-overlay" id="pricingModal">
+  <div class="modal-container">
+    <button class="modal-close" onclick="document.getElementById('pricingModal').style.display='none'" aria-label="Close">&times;</button>
+
+    <!-- Header -->
+    <div class="pricing-header">
+      <div class="logo">dragoNotebook</div>
+      <h1>Choose your plan</h1>
+      <p>The core scanning tool is free forever. Go Pro for power features and the full Dragon Suite.</p>
+    </div>
+
+    <!-- Cards -->
+    <div class="pricing-cards">
+
+      <!-- Free Card -->
+      <div class="card free">
+        <div class="card-badge">Free</div>
+        <h2>Basic</h2>
+        <div class="price"><span>$0</span> / forever</div>
+        <a href="#download" class="cta">Download Free</a>
+        <ul>
+          <li>Scan a project with smart defaults</li>
+          <li>Automatic .gitignore &amp; binary detection</li>
+          <li>File tree + code context output</li>
+          <li>200k token code / 100k token test limits</li>
+          <li>Analysis prompt &amp; usage readme</li>
+          <li>Test detection (separate export)</li>
+          <li>Desktop GUI &amp; CLI</li>
+          <li class="section-label">CLI only</li>
+          <li>Extra ignore patterns (glob)</li>
+          <li>Force-include overrides</li>
+          <li>Resource directory toggle</li>
+          <li class="section-label">Ongoing</li>
+          <li>Free updates &amp; bug fixes</li>
+        </ul>
+      </div>
+
+      <!-- Pro Card -->
+      <div class="card pro">
+        <div class="card-badge">Pro</div>
+        <h2>Dragon Suite</h2>
+        <div class="price"><span>$5</span> / month</div>
+        <a href="#subscribe" class="cta">Start Pro</a>
+        <ul>
+          <li>Everything in Basic, plus:</li>
+          <li>Multi-root project scanning</li>
+          <li>Configurable test directories &amp; wildcards</li>
+          <li>All test export modes (separate / inline / exclude)</li>
+          <li>CSV detection, copying &amp; consolidation</li>
+          <li>Custom token &amp; character truncation limits</li>
+          <li>Exact token budget mode</li>
+          <li>Auto-split &amp; consolidated output</li>
+          <li>.dragignore &amp; persistent ignore rules</li>
+          <li>UI: file-level checkbox control</li>
+          <li>UI: resource directory picker</li>
+          <li>ZIP archive export</li>
+          <li>Parallel scanning (rayon)</li>
+          <li class="section-label">Suite &amp; access</li>
+          <li>Keep the tool if you cancel</li>
+          <li>Full Dragon Suite access</li>
+          <li>Request features &amp; bug fixes</li>
+          <li>Early access to betas</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Detailed comparison table -->
+    <div class="comparison-section">
+      <div class="comparison-toggle">
+        <button onclick="document.getElementById('compTable').style.display = document.getElementById('compTable').style.display === 'none' ? 'table' : 'none'">
+          Compare all features ↓
+        </button>
+      </div>
+
+      <table class="comparison-table" id="compTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Basic</th>
+            <th>Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Scanning -->
+          <tr class="category-row"><td colspan="3">Scanning</td></tr>
+          <tr>
+            <td>Single project directory scan</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Multi-root project scanning</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Parallel scanning (rayon)</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>.gitignore support</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>.dragignore support</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Auto-detect &amp; skip binary files</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Auto-ignore common junk directories</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>File size filtering</td>
+            <td>Fixed 25 MB</td>
+            <td>Configurable</td>
+          </tr>
+
+          <!-- Filtering -->
+          <tr class="category-row"><td colspan="3">Filtering &amp; Overrides</td></tr>
+          <tr>
+            <td>Extra ignore patterns (glob)</td>
+            <td>CLI only</td>
+            <td><span class="check-pro">✓</span> <span class="detail">CLI + GUI</span></td>
+          </tr>
+          <tr>
+            <td>Force-include overrides</td>
+            <td>CLI only</td>
+            <td><span class="check-pro">✓</span> <span class="detail">CLI + GUI</span></td>
+          </tr>
+          <tr>
+            <td>Persistent ignore rules (--add-ignore)</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>UI: checkbox file exclusion</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>UI: ignored file force-include</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+
+          <!-- Test handling -->
+          <tr class="category-row"><td colspan="3">Test Handling</td></tr>
+          <tr>
+            <td>Auto-detect test directories</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Test export: separate</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Test export: inline / exclude</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Configurable test dirs &amp; wildcard matching</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+
+          <!-- CSV -->
+          <tr class="category-row"><td colspan="3">CSV Handling</td></tr>
+          <tr>
+            <td>CSV detection &amp; copying</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>CSV consolidation (merged + source column)</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+
+          <!-- Output -->
+          <tr class="category-row"><td colspan="3">Output &amp; Truncation</td></tr>
+          <tr>
+            <td>File tree output</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Code context output</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Token limits</td>
+            <td>200k / 100k fixed</td>
+            <td>Configurable</td>
+          </tr>
+          <tr>
+            <td>Character-based truncation mode</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Exact token budget mode</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Auto-split into multiple parts</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Consolidated single-file output</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Per-root separate output files</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Merge-roots single output</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Analysis prompt</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>ZIP archive export</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+
+          <!-- Resources -->
+          <tr class="category-row"><td colspan="3">Resource Directories</td></tr>
+          <tr>
+            <td>Auto-detect resource/assets/static</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Include/exclude toggle</td>
+            <td>CLI only</td>
+            <td><span class="check-pro">✓</span> <span class="detail">CLI + GUI</span></td>
+          </tr>
+          <tr>
+            <td>UI: resource directory checkboxes</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+
+          <!-- GUI -->
+          <tr class="category-row"><td colspan="3">Desktop GUI</td></tr>
+          <tr>
+            <td>Scan &amp; export with directory picker</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Multi-root add/remove chips</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Granular file selection checkboxes</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Extra ignore patterns input</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Custom agent targeting</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+
+          <!-- Subscription -->
+          <tr class="category-row"><td colspan="3">Subscription &amp; Support</td></tr>
+          <tr>
+            <td>Updates &amp; bug fixes</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Keep tool after cancelling</td>
+            <td>—</td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Full Dragon Suite access</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Request features &amp; priority bugs</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+          <tr>
+            <td>Early access to betas</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check-pro">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tech Specs -->
+    <div class="specs-section" id="specs">
+      <h3>Tech Specs</h3>
+      <p class="section-subtitle">What powers dragoNotebook under the hood.</p>
+
+      <div class="specs-grid">
+        <div class="spec-card">
+          <h4>Core Engine</h4>
+          <ul>
+            <li><strong>Language:</strong> Rust (100% — no garbage collector, no runtime)</li>
+            <li><strong>CLI binary:</strong> single native executable, zero dependencies</li>
+            <li><strong>Scanning:</strong> walkdir + custom .gitignore parser</li>
+            <li><strong>Token counting:</strong> tiktoken-rs (cl100k_base)</li>
+            <li><strong>Parallel mode:</strong> rayon (Pro)</li>
+            <li><strong>Archive export:</strong> zip crate (Pro)</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Desktop GUI</h4>
+          <ul>
+            <li><strong>Framework:</strong> Tauri 2.0</li>
+            <li><strong>Frontend:</strong> vanilla HTML / CSS / JS — no Node.js, no bundler</li>
+            <li><strong>Renderer:</strong> OS-native WebView (WebView2 on Win, WebKit on macOS/Linux)</li>
+            <li><strong>IPC:</strong> typed Rust commands, JSON serialization</li>
+            <li><strong>Dialogs:</strong> native OS file pickers via tauri-plugin-dialog</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Resource Footprint</h4>
+          <ul>
+            <li><strong>Idle RAM:</strong> ~30–50 MB (no Electron, no Node, no Chrome)</li>
+            <li><strong>Installer size:</strong> ~4–8 MB (leverages OS WebView)</li>
+            <li><strong>Startup:</strong> under 1 second on modern hardware</li>
+            <li><strong>Background processes:</strong> none — no dev server, no daemon</li>
+            <li><strong>Runtime deps:</strong> WebView2 (Win 10+, pre-installed), WebKit (macOS/Linux, always available)</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <h4>Cross-Platform</h4>
+          <ul>
+            <li><strong>Windows:</strong> 10 (1803+) / 11 — NSIS installer, MSI, standalone CLI</li>
+            <li><strong>macOS:</strong> 10.15 Catalina+ — DMG, standalone CLI</li>
+            <li><strong>Linux:</strong> .deb, .AppImage, standalone CLI</li>
+            <li><strong>Architecture:</strong> x86_64 (ARM builds planned)</li>
+            <li><strong>CI-tested:</strong> 119 cross-platform unit &amp; integration tests</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Downloads -->
+    <div class="download-section" id="download">
+      <h3>Download</h3>
+      <p class="section-subtitle">Desktop GUI includes the CLI. Standalone CLI available for headless / CI use.</p>
+
+      <div class="download-grid">
+
+        <!-- Windows -->
+        <div class="dl-platform">
+          <div class="platform-icon">🪟</div>
+          <h4>Windows</h4>
+          <div class="dl-links">
+            <a href="#dl-basic-win-setup" class="dl-basic">Basic — Installer <span class="dl-format">.exe</span></a>
+            <a href="#dl-pro-win-setup" class="dl-pro">Pro — Installer <span class="dl-format">.exe</span></a>
+            <a href="#dl-basic-win-msi" class="dl-basic">Basic — MSI <span class="dl-format">.msi</span></a>
+            <a href="#dl-pro-win-msi" class="dl-pro">Pro — MSI <span class="dl-format">.msi</span></a>
+          </div>
+        </div>
+
+        <!-- macOS -->
+        <div class="dl-platform">
+          <div class="platform-icon">🍎</div>
+          <h4>macOS</h4>
+          <div class="dl-links">
+            <a href="#dl-basic-mac-dmg" class="dl-basic">Basic — DMG <span class="dl-format">.dmg</span></a>
+            <a href="#dl-pro-mac-dmg" class="dl-pro">Pro — DMG <span class="dl-format">.dmg</span></a>
+          </div>
+        </div>
+
+        <!-- Linux -->
+        <div class="dl-platform">
+          <div class="platform-icon">🐧</div>
+          <h4>Linux</h4>
+          <div class="dl-links">
+            <a href="#dl-basic-linux-deb" class="dl-basic">Basic — Debian <span class="dl-format">.deb</span></a>
+            <a href="#dl-pro-linux-deb" class="dl-pro">Pro — Debian <span class="dl-format">.deb</span></a>
+            <a href="#dl-basic-linux-appimage" class="dl-basic">Basic — AppImage <span class="dl-format">.AppImage</span></a>
+            <a href="#dl-pro-linux-appimage" class="dl-pro">Pro — AppImage <span class="dl-format">.AppImage</span></a>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="dl-cli-note">
+        Standalone CLI (no GUI):
+        <a href="#dl-cli-basic-win">Win</a> ·
+        <a href="#dl-cli-basic-mac">macOS</a> ·
+        <a href="#dl-cli-basic-linux">Linux</a>
+        &nbsp;|&nbsp;
+        Pro CLI:
+        <a href="#dl-cli-pro-win">Win</a> ·
+        <a href="#dl-cli-pro-mac">macOS</a> ·
+        <a href="#dl-cli-pro-linux">Linux</a>
+      </p>
+    </div>
+
+    <!-- Considerations: Why Tauri -->
+    <div class="considerations-section" id="gui-considerations">
+      <div class="considerations-toggle">
+        <button onclick="
+          var el = document.getElementById('considerationsBody');
+          var btn = this;
+          if (el.style.display === 'none') {
+            el.style.display = 'block';
+            btn.textContent = 'Why Tauri? — Collapse ↑';
+          } else {
+            el.style.display = 'none';
+            btn.textContent = 'Why Tauri? — GUI technology considerations ↓';
+          }
+        ">Why Tauri? — GUI technology considerations ↓</button>
+      </div>
+
+      <div class="considerations-content" id="considerationsBody" style="display: none;">
+
+        <h4>Why not Electron?</h4>
+        <p>
+          Electron ships an entire Chromium browser and a Node.js runtime inside
+          every app. That means a simple file-scanning utility would carry
+          <strong>~150–300 MB</strong> of overhead, spawn multiple background
+          processes, and idle at <strong>100–200 MB</strong> of RAM before the
+          user even clicks a button. dragoNotebook targets developers whose
+          machines are already running IDEs, browsers, Docker containers, and
+          language servers — every megabyte of headroom matters.
+        </p>
+        <p>
+          Tauri sidesteps this entirely. Instead of bundling a browser, it uses
+          the WebView already installed on the operating system — WebView2 on
+          Windows (Chromium-based, pre-installed on Windows 10 21H2+ and all
+          Windows 11 machines), WebKit on macOS and Linux. The result: a
+          <strong>~4–8 MB</strong> installer that idles at
+          <strong>~30–50 MB</strong> of RAM with <strong>zero</strong> Node.js
+          processes running in the background.
+        </p>
+
+        <h4>Why not a pure-Rust GUI (egui, iced, etc.)?</h4>
+        <p>
+          Pure-Rust immediate-mode frameworks like egui (eframe) compile to a
+          single binary with zero external dependencies — genuinely impressive
+          for certain workloads. But dragoNotebook's UI is a
+          <strong>form-driven configuration tool</strong>: file trees,
+          checkboxes, dropdown menus, text inputs, collapsible panels, tier-gated
+          feature visibility, and responsive layout. This is exactly the kind of
+          interface that HTML/CSS was built to express in a few lines and that
+          immediate-mode Rust GUIs require hundreds of lines of manual layout
+          code to replicate.
+        </p>
+
+        <table class="considerations-table">
+          <thead>
+            <tr>
+              <th>Consideration</th>
+              <th>Tauri 2.0 (what dragoNotebook uses)</th>
+              <th>egui / eframe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Installer size</td>
+              <td>~4–8 MB (uses OS WebView)</td>
+              <td>~10–20 MB (ships own OpenGL renderer)</td>
+            </tr>
+            <tr>
+              <td>Idle RAM</td>
+              <td>~30–50 MB</td>
+              <td>~20–40 MB</td>
+            </tr>
+            <tr>
+              <td>Runtime dependencies</td>
+              <td>WebView2 (pre-installed Win 10+)</td>
+              <td>None — fully self-contained</td>
+            </tr>
+            <tr>
+              <td>Startup time</td>
+              <td>~0.5–1 s (WebView init)</td>
+              <td>~0.1–0.3 s (OpenGL context)</td>
+            </tr>
+            <tr>
+              <td>Styling &amp; layout</td>
+              <td>Full CSS — flexbox, grid, animations, transitions</td>
+              <td>Manual Rust layout code; no CSS</td>
+            </tr>
+            <tr>
+              <td>Typography</td>
+              <td>Full web fonts, any size, kerning, ligatures</td>
+              <td>Single TTF at a time; basic sizing</td>
+            </tr>
+            <tr>
+              <td>Accessibility</td>
+              <td>Full browser a11y (screen readers, keyboard nav)</td>
+              <td>Partial via accesskit; less mature</td>
+            </tr>
+            <tr>
+              <td>Real-time GPU rendering</td>
+              <td>WebGL (adequate, not native)</td>
+              <td>Direct OpenGL/wgpu — excellent for charts</td>
+            </tr>
+            <tr>
+              <td>Form-heavy UIs</td>
+              <td>Excellent — native browser territory</td>
+              <td>Functional but limited inputs</td>
+            </tr>
+            <tr>
+              <td>Plugin ecosystem</td>
+              <td>Large (dialog, shell, fs, updater, tray, etc.)</td>
+              <td>Growing (egui_plot, egui_extras, egui_dock)</td>
+            </tr>
+            <tr>
+              <td>Bundled installers</td>
+              <td>Built-in: NSIS, MSI, DMG, .deb, .AppImage</td>
+              <td>None — manual packaging required</td>
+            </tr>
+            <tr>
+              <td>Auto-update</td>
+              <td>Built-in Tauri updater plugin</td>
+              <td>Roll your own</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>The Node.js question</h4>
+        <p>
+          A common concern with web-based desktop frameworks: "does it require
+          Node.js?" With Tauri, the answer is <strong>no</strong> — not at
+          runtime. dragoNotebook's frontend is static HTML, CSS, and vanilla
+          JavaScript. There is no <code>npm install</code>, no
+          <code>node_modules</code>, no webpack, no dev server. The build
+          pipeline is pure <code>cargo</code>. Users who download the app get a
+          native installer; Node.js never enters the picture.
+        </p>
+        <p>
+          This matters for the same reason the Electron comparison matters:
+          developer workstations are resource-constrained. A desktop app that
+          silently spins up a Node.js event loop, an HTTP server, and a file
+          watcher just to render a config form is paying an engineering tax
+          that dragoNotebook avoids entirely.
+        </p>
+
+        <h4>Where egui shines instead</h4>
+        <p>
+          Pure-Rust frameworks are the better choice when the application
+          <em>is</em> the rendering — real-time data visualization, interactive
+          charts at 60 fps, GPU-accelerated canvases where every frame repaints
+          from computed data with zero serialization overhead. For those
+          workloads, immediate-mode Rust drawing directly on an OpenGL surface
+          has a clear performance advantage over shipping data across an IPC
+          bridge to a browser renderer.
+        </p>
+
+        <div class="verdict-box">
+          <p>
+            <strong>Bottom line:</strong> Tauri gives dragoNotebook a polished,
+            accessible, CSS-styled desktop experience with built-in installers
+            and auto-update — at a fraction of Electron's resource cost and
+            without requiring Node.js at build or runtime. The trade-off
+            (OS WebView dependency, slightly slower cold start) is well worth it
+            for a form-driven developer tool that prioritizes low overhead and
+            cross-platform reach.
+          </p>
+        </div>
+
+        <div class="other-projects-note">
+          For a look at the pure-Rust (egui/eframe) approach in action, see
+          <a href="#options-risk-visualizer">Options Risk Analysis Visualizer</a>
+          — a GPU-rendered interactive charting tool where immediate-mode
+          rendering is the right fit.
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="pricing-footer">
+      <p>Questions? <a href="#contact">Get in touch</a> · <a href="#docs">Read the docs</a></p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

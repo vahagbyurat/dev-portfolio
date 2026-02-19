@@ -1,0 +1,83 @@
+{
+  "programmingLanguages": {
+    "title": "Programming Languages",
+    "mostExperience": [
+      {
+        "name": "Java",
+        "years": "15+"
+      }
+    ],
+    "activeStrong": [
+      {
+        "name": "Python",
+        "years": "8+"
+      },
+      {
+        "name": "SQL",
+        "years": "12+"
+      }
+    ],
+    "enjoyUsing": [
+      {
+        "name": "Rust",
+        "years": "1+"
+      }
+    ],
+    "alsoCodedIn": [
+      "TypeScript",
+      "JavaScript",
+      "C#",
+      "C++",
+      "GraphQL"
+    ],
+    "wantToLearn": [
+      "Zig",
+      "Go (Golang)"
+    ]
+  },
+  "skillDomains": [
+    {
+      "name": "Programming Languages",
+      "items": ["Java", "Python", "SQL", "Rust", "TypeScript", "JavaScript", "C#", "C++", "GraphQL"]
+    },
+    {
+      "name": "Testing & Automation",
+      "items": ["Framework Architecture", "Selenium", "Playwright", "REST API Testing", "E2E Testing", "Performance Testing"]
+    },
+    {
+      "name": "Cloud & DevOps",
+      "items": ["AWS", "GitLab CI/CD", "Jenkins", "ArgoCD", "Datadog"]
+    },
+    {
+      "name": "Data & Databases",
+      "items": ["PostgreSQL", "MySQL", "Snowflake", "DynamoDB", "Redis", "OpenSearch"]
+    }
+  ],
+  "experienceTimeline": [
+    {
+      "period": "2024-2025",
+      "role": "Senior Software Engineer II (SDET)",
+      "company": "Altruist",
+      "highlight": "Led integrations QA with high automation coverage and production confidence."
+    },
+    {
+      "period": "2008-2024",
+      "role": "Automation QA Engineer",
+      "company": "Sony PlayStation",
+      "highlight": "Built and evolved large-scale automation frameworks across major product lines."
+    }
+  ],
+  "strengthSignals": [
+    "15+ years in quality engineering and automation",
+    "Strong in Java, Python, SQL",
+    "Designs maintainable frameworks and CI-driven quality systems"
+  ],
+  "growthSignals": [
+    "Enjoys systems programming in Rust",
+    "Actively learning Zig and Go"
+  ],
+  "profile": {
+    "name": "Vahag Byurat",
+    "title": "Senior SDET · QA Automation Engineer · Software Builder"
+  }
+}

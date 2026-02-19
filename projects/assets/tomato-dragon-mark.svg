@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Tomato body -->
+  <ellipse cx="60" cy="68" rx="42" ry="38" fill="#e05d44"/>
+  <ellipse cx="60" cy="68" rx="42" ry="38" fill="url(#tShine)" opacity="0.5"/>
+  <!-- Tomato highlight -->
+  <defs>
+    <radialGradient id="tShine" cx="40%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#ff8a70"/>
+      <stop offset="100%" stop-color="#e05d44" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Stem / dragon horns -->
+  <path d="M52 34 Q48 18 38 12" stroke="#4a8c3a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M58 32 Q58 14 54 6"  stroke="#4a8c3a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M64 32 Q66 14 72 6"  stroke="#4a8c3a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M70 34 Q76 18 84 12" stroke="#4a8c3a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Eyes -->
+  <ellipse cx="46" cy="62" rx="6" ry="7" fill="#1a0f0f"/>
+  <ellipse cx="74" cy="62" rx="6" ry="7" fill="#1a0f0f"/>
+  <circle cx="44" cy="59" r="2.2" fill="#fff" opacity="0.85"/>
+  <circle cx="72" cy="59" r="2.2" fill="#fff" opacity="0.85"/>
+  <!-- Smile -->
+  <path d="M48 76 Q60 86 72 76" stroke="#1a0f0f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Small dragon wings -->
+  <path d="M18 58 Q8 48 14 38 Q20 44 22 54" fill="#f0a44e" opacity="0.7"/>
+  <path d="M102 58 Q112 48 106 38 Q100 44 98 54" fill="#f0a44e" opacity="0.7"/>
+</svg>

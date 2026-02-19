@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a0f0f"/>
+      <stop offset="100%" stop-color="#221515"/>
+    </linearGradient>
+  </defs>
+
+  <!-- App background -->
+  <rect width="800" height="480" rx="16" fill="url(#bgGrad)"/>
+
+  <!-- Top bar -->
+  <rect x="0" y="0" width="800" height="44" rx="16" fill="#150c0c"/>
+  <rect x="0" y="16" width="800" height="28" fill="#150c0c"/>
+  <text x="24" y="28" font-family="sans-serif" font-size="14" fill="#a08880" font-weight="500">Tomato Dragon</text>
+  <circle cx="756" cy="22" r="5" fill="#3a2222"/>
+  <circle cx="736" cy="22" r="5" fill="#3a2222"/>
+  <circle cx="776" cy="22" r="5" fill="#e05d44" opacity="0.6"/>
+
+  <!-- Timer ring area -->
+  <circle cx="280" cy="260" r="130" fill="none" stroke="#3a2222" stroke-width="12"/>
+  <circle cx="280" cy="260" r="130" fill="none" stroke="#e05d44" stroke-width="12"
+    stroke-dasharray="565" stroke-dashoffset="140" stroke-linecap="round"
+    transform="rotate(-90 280 260)"/>
+  <circle cx="280" cy="260" r="110" fill="#1a0f0f" opacity="0.4"/>
+
+  <!-- Timer text -->
+  <text x="280" y="248" font-family="monospace" font-size="48" fill="#f0e8e4" text-anchor="middle" font-weight="300">18:42</text>
+  <text x="280" y="275" font-family="sans-serif" font-size="13" fill="#a08880" text-anchor="middle">FOCUS SESSION</text>
+
+  <!-- Tomato icons (collected) -->
+  <circle cx="230" cy="310" r="8" fill="#e05d44"/>
+  <circle cx="255" cy="310" r="8" fill="#e05d44"/>
+  <circle cx="280" cy="310" r="8" fill="#e05d44"/>
+  <circle cx="305" cy="310" r="8" fill="#3a2222"/>
+  <circle cx="330" cy="310" r="8" fill="#3a2222"/>
+
+  <!-- Control buttons -->
+  <rect x="222" y="340" width="50" height="32" rx="6" fill="#3a2222"/>
+  <text x="247" y="361" font-family="sans-serif" font-size="11" fill="#a08880" text-anchor="middle">Pause</text>
+  <rect x="282" y="340" width="50" height="32" rx="6" fill="#3a2222"/>
+  <text x="307" y="361" font-family="sans-serif" font-size="11" fill="#a08880" text-anchor="middle">Skip</text>
+
+  <!-- Sidebar -->
+  <rect x="520" y="60" width="256" height="400" rx="12" fill="#150c0c" opacity="0.6"/>
+
+  <!-- Stats header -->
+  <text x="544" y="92" font-family="sans-serif" font-size="14" fill="#f0a44e" font-weight="500">Session Stats</text>
+
+  <!-- Stat rows -->
+  <rect x="540" y="108" width="220" height="1" fill="#3a2222"/>
+  <text x="544" y="132" font-family="sans-serif" font-size="12" fill="#a08880">Today</text>
+  <text x="748" y="132" font-family="sans-serif" font-size="12" fill="#f0e8e4" text-anchor="end">3 / 5</text>
+  <text x="544" y="158" font-family="sans-serif" font-size="12" fill="#a08880">This Week</text>
+  <text x="748" y="158" font-family="sans-serif" font-size="12" fill="#f0e8e4" text-anchor="end">18</text>
+  <text x="544" y="184" font-family="sans-serif" font-size="12" fill="#a08880">Focus Time</text>
+  <text x="748" y="184" font-family="sans-serif" font-size="12" fill="#f0e8e4" text-anchor="end">4h 32m</text>
+
+  <!-- Mini bar chart -->
+  <text x="544" y="224" font-family="sans-serif" font-size="12" fill="#f0a44e">Weekly Overview</text>
+  <rect x="544" y="238" width="24" height="60" rx="3" fill="#3a2222"/>
+  <rect x="544" y="268" width="24" height="30" rx="3" fill="#e05d44" opacity="0.7"/>
+  <rect x="576" y="238" width="24" height="60" rx="3" fill="#3a2222"/>
+  <rect x="576" y="252" width="24" height="46" rx="3" fill="#e05d44" opacity="0.7"/>
+  <rect x="608" y="238" width="24" height="60" rx="3" fill="#3a2222"/>
+  <rect x="608" y="242" width="24" height="56" rx="3" fill="#e05d44" opacity="0.7"/>
+  <rect x="640" y="238" width="24" height="60" rx="3" fill="#3a2222"/>
+  <rect x="640" y="260" width="24" height="38" rx="3" fill="#e05d44" opacity="0.7"/>
+  <rect x="672" y="238" width="24" height="60" rx="3" fill="#3a2222"/>
+  <rect x="672" y="270" width="24" height="28" rx="3" fill="#e05d44" opacity="0.7"/>
+  <rect x="704" y="238" width="24" height="60" rx="3" fill="#3a2222"/>
+  <rect x="704" y="278" width="24" height="20" rx="3" fill="#e05d44" opacity="0.4"/>
+  <rect x="736" y="238" width="24" height="60" rx="3" fill="#3a2222"/>
+
+  <!-- Day labels -->
+  <text x="556" y="312" font-family="sans-serif" font-size="9" fill="#a08880" text-anchor="middle">M</text>
+  <text x="588" y="312" font-family="sans-serif" font-size="9" fill="#a08880" text-anchor="middle">T</text>
+  <text x="620" y="312" font-family="sans-serif" font-size="9" fill="#a08880" text-anchor="middle">W</text>
+  <text x="652" y="312" font-family="sans-serif" font-size="9" fill="#a08880" text-anchor="middle">T</text>
+  <text x="684" y="312" font-family="sans-serif" font-size="9" fill="#a08880" text-anchor="middle">F</text>
+  <text x="716" y="312" font-family="sans-serif" font-size="9" fill="#a08880" text-anchor="middle">S</text>
+  <text x="748" y="312" font-family="sans-serif" font-size="9" fill="#a08880" text-anchor="middle">S</text>
+
+  <!-- Recent rounds -->
+  <text x="544" y="346" font-family="sans-serif" font-size="12" fill="#f0a44e">Recent Rounds</text>
+  <rect x="540" y="354" width="220" height="1" fill="#3a2222"/>
+  <text x="544" y="376" font-family="sans-serif" font-size="11" fill="#a08880">25:00 Focus</text>
+  <text x="748" y="376" font-family="sans-serif" font-size="11" fill="#4a8c3a" text-anchor="end">Done</text>
+  <text x="544" y="398" font-family="sans-serif" font-size="11" fill="#a08880">5:00 Break</text>
+  <text x="748" y="398" font-family="sans-serif" font-size="11" fill="#4a8c3a" text-anchor="end">Done</text>
+  <text x="544" y="420" font-family="sans-serif" font-size="11" fill="#a08880">25:00 Focus</text>
+  <text x="748" y="420" font-family="sans-serif" font-size="11" fill="#f0a44e" text-anchor="end">Active</text>
+
+  <!-- Dragon companion silhouette -->
+  <circle cx="280" cy="260" r="28" fill="#221515"/>
+  <text x="280" y="270" font-family="sans-serif" font-size="30" text-anchor="middle" fill="#e05d44" opacity="0.8">&#x1F432;</text>
+</svg>

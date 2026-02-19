@@ -1,3 +1,4 @@
+.DS_Store
 /image_assets_do_not_upload
 assets/vahagLogo.png
 assets/vahag_logo.jpg
@@ -5,3 +6,4 @@ assets/vahag_logo.jpg
 README.md
 nul
 /.claude
+.DS_Store
