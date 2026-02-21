@@ -33,7 +33,6 @@
 
         var inlineHTML = (window.MODAL_CONTENT && window.MODAL_CONTENT[projectId]) || null;
 
-        // 1. Try XHR first (works on http/https, gets latest .html files)
         var url = MODAL_BASE + file;
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
@@ -41,14 +40,12 @@
             if (xhr.status >= 200 && xhr.status < 300) {
                 callback(xhr.responseText);
             } else if (inlineHTML) {
-                // 404 but we have inline content
                 callback(inlineHTML);
             } else {
                 callback('<div style="padding:60px;text-align:center;color:var(--bronze);">Content coming soon.</div>');
             }
         };
         xhr.onerror = function () {
-            // 2. XHR failed (file:// protocol) — fall back to inline content
             if (inlineHTML) {
                 callback(inlineHTML);
             } else {
@@ -63,10 +60,12 @@
         if (isOpen) return;
 
         fetchContent(projectId, function (html) {
-            // Build DOM
+
+            // ── Overlay
             var overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
 
+            // ── Visual shell (handles shape / bg / animation — no scrolling)
             var container = document.createElement('div');
             container.className = 'modal-container';
             container.setAttribute('data-project', projectId);
@@ -77,14 +76,45 @@
             closeBtn.setAttribute('aria-label', 'Close modal');
             closeBtn.innerHTML = '&times;';
 
+            var closeBtnWrapper = document.createElement('div');
+            closeBtnWrapper.className = 'modal-close-wrapper';
+            closeBtnWrapper.appendChild(closeBtn);
+
             // Body
             var body = document.createElement('div');
             body.className = 'modal-body';
             body.innerHTML = html;
 
-            container.appendChild(closeBtn);
-            container.appendChild(body);
+            // Inner scroll container
+            var inner = document.createElement('div');
+            inner.className = 'modal-inner';
+            inner.appendChild(body);
+
+            // ── Extract hero section above the scroll container
+            // so it spans full-width with no scrollbar-gutter strip.
+            // Wraps it in a div with the same parent class (e.g. 'dn-page')
+            // so scoped CSS selectors like '.dn-page .hero-banner' still match.
+            var heroEl = inner.querySelector('.hero-banner');
+            if (heroEl && heroEl.parentElement) {
+                var heroWrapper = document.createElement('div');
+                heroWrapper.className = heroEl.parentElement.className;
+                heroWrapper.appendChild(heroEl); // detaches from body, moves here
+                container.appendChild(closeBtnWrapper);
+                container.appendChild(heroWrapper);
+                container.appendChild(inner);
+            } else {
+                container.appendChild(closeBtnWrapper);
+                container.appendChild(inner);
+            }
+
             overlay.appendChild(container);
+
+            // ── Compensate for page scrollbar shift
+            var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            if (scrollbarWidth > 0) {
+                document.body.style.paddingRight = scrollbarWidth + 'px';
+            }
+
             document.body.appendChild(overlay);
             document.body.classList.add('modal-open');
 
@@ -108,13 +138,13 @@
         currentOverlay.classList.add('closing');
         if (container) container.classList.add('closing');
 
-        // Wait for animation to finish, then remove
-        var duration = 380; // slightly longer than CSS tvTurnOff (0.35s)
+        var duration = 380;
         setTimeout(function () {
             if (currentOverlay && currentOverlay.parentNode) {
                 currentOverlay.parentNode.removeChild(currentOverlay);
             }
             document.body.classList.remove('modal-open');
+            document.body.style.paddingRight = '';
             document.removeEventListener('keydown', onEscape);
             currentOverlay = null;
             isOpen = false;

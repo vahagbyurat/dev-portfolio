@@ -40,14 +40,15 @@ body.modal-open {
     to   { opacity: 0; }
 }
 
-/* ── Container ──────────────────────────────────────── */
+/* ── Container (visual shell + scroll host) ─────────── */
 .modal-container {
     position: relative;
     width: 70%;
     max-width: 1200px;
     max-height: 90vh;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     border-radius: 16px;
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 
@@ -55,10 +56,6 @@ body.modal-open {
     background: var(--cream);
     border: 1px solid var(--dark-cream);
     color: var(--charcoal);
-
-    /* Firefox scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: var(--bronze) var(--dark-cream);
 
     /* ── TV turn-on ─────────────────────────────────── */
     transform: scaleY(0.005) scaleX(0.4);
@@ -143,29 +140,65 @@ body.modal-open {
     100% { opacity: 0; }
 }
 
-/* ── Webkit scrollbar inside modal ──────────────────── */
-.modal-container::-webkit-scrollbar {
-    width: 8px;
+/* ── Inner scroll container ─────────────────────────── */
+/* overflow:hidden on .modal-container clips the native      */
+/* scrollbar track at the rounded corners automatically.     */
+/* margin-top on the webkit track pushes the scrollbar start */
+/* below the white hero header and first section heading.    */
+.modal-inner {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Background fills the scrollbar gutter column so it matches     */
+    /* the project body color — invisible seam rather than cream gap. */
+    background: var(--modal-bg, transparent);
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--modal-accent, var(--bronze)) 30%, transparent) transparent;
 }
-.modal-container::-webkit-scrollbar-track {
-    background: var(--dark-cream);
-    border-radius: 0 16px 16px 0;
+
+.modal-inner::-webkit-scrollbar {
+    width: 6px;
 }
-.modal-container::-webkit-scrollbar-thumb {
-    background: var(--bronze);
-    border-radius: 4px;
-    border: 1px solid var(--dark-cream);
+
+.modal-inner::-webkit-scrollbar-track {
+    background: transparent;
+    /* Hero is now above .modal-inner, so scroll area starts in the dark  */
+    /* body section. 70px clears the section padding (40px) + heading text. */
+    margin-top: 70px;
+    margin-bottom: 16px;
 }
-.modal-container::-webkit-scrollbar-thumb:hover {
-    background: var(--gold);
+
+.modal-inner::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--modal-accent, var(--bronze)) 30%, transparent);
+    border-radius: 3px;
+}
+
+.modal-inner::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--modal-accent-hover, var(--gold)) 60%, transparent);
+}
+
+/* ── Close button wrapper ────────────────────────────── */
+/* Lives outside .modal-inner so it's never scrolled away. */
+/* Absolute-positioned zero-height row at the top of the  */
+/* shell; button floats over whatever content is beneath.  */
+.modal-close-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    overflow: visible;
+    z-index: 10;
+    pointer-events: none;
 }
 
 /* ── Close button ───────────────────────────────────── */
 .modal-close {
-    position: sticky;
-    top: 0;
-    float: right;
-    margin: 16px 16px 0 0;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    pointer-events: all;   /* re-enable clicks on the button itself */
     background: rgba(245, 241, 232, 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -180,7 +213,6 @@ body.modal-open {
     justify-content: center;
     border-radius: 8px;
     transition: background 0.2s ease, color 0.2s ease;
-    z-index: 10;
     line-height: 1;
 }
 
@@ -206,16 +238,21 @@ body.modal-open {
     z-index: 2; /* above scanline pseudo-element */
 }
 
-/* ── Per-project close button (always dark bg) ─────── */
+/* ── Per-project close button — transparent, themed with secondary ── */
+/* Background is transparent so the hero white / body dark shows       */
+/* through naturally. Icon uses --modal-secondary (e.g. Dragonote      */
+/* orange, Tomato Dragon warm orange, etc.) for project branding.      */
 .modal-container[data-project] .modal-close {
-    background: rgba(20, 20, 20, 0.85);
-    border-color: var(--modal-accent, var(--gold));
-    color: var(--modal-accent, var(--gold));
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--modal-secondary, var(--modal-accent, var(--gold)));
+    color: var(--modal-secondary, var(--modal-accent, var(--gold)));
 }
 
 .modal-container[data-project] .modal-close:hover {
-    background: var(--modal-accent, var(--gold));
-    color: var(--modal-bg, #141414);
+    background: var(--modal-secondary, var(--modal-accent, var(--gold)));
+    color: #fff;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -288,18 +325,19 @@ body.modal-open {
         width: 36px;
         height: 36px;
         font-size: 1.1em;
-        margin: 12px 12px 0 0;
+        top: 12px;
+        right: 12px;
     }
 }
 
 @media (max-width: 600px) {
+    .modal-overlay {
+        padding: 0;
+    }
+
     .modal-container {
         width: 100%;
         max-height: 100vh;
         border-radius: 0;
-    }
-
-    .modal-overlay {
-        padding: 0;
     }
 }
